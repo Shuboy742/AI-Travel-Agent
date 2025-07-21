@@ -23,6 +23,26 @@ A full-stack AI-powered travel agent application with a Python FastAPI backend a
 
 ---
 
+## Context Files and Their Role in Context Engineering
+
+This project includes several key context and documentation files that support context engineering and structured development:
+
+- **PRD.md** – Product Requirements Document: Outlines the vision, features, and goals of the project.
+- **implementation.md** – Details the step-by-step implementation plan, tech stack decisions, and development milestones.
+- **workflow.md** – Describes the recommended development workflow, including branching, code review, and deployment practices.
+- **UI_UX.md** – Documents the user interface and user experience guidelines, wireframes, and design principles.
+- **Bug-Tracking.md** – Used to log, track, and resolve bugs throughout the project lifecycle.
+- **project-structure.md** – Explains the directory and file organization, naming conventions, and modularization strategy.
+- **generate.md** – (If present) Used for code generation instructions, prompts, or AI-assisted development notes.
+
+**Use in Context Engineering:**  
+These files are essential for context engineering because they provide structured, accessible, and evolving context for both human developers and AI agents. They ensure that everyone (and every tool) working on the project has a shared understanding of requirements, design, workflow, and architecture. This enables more intelligent automation, better onboarding, and more effective collaboration.
+
+> **Tip:**  
+> Spend some time editing and updating these files to match your specific project needs. Well-maintained context files make your project easier to understand, extend, and maintain for both humans and AI-powered tools.
+
+---
+
 ## Tech Stack
 
 ### Frontend
@@ -128,7 +148,3 @@ Pull requests are welcome! Please open an issue first to discuss major changes.
 
 ## License
 MIT
-
----
-
-**Designed by Shubham Kambale**
