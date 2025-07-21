@@ -1,8 +1,9 @@
 fastapi
 uvicorn
-google-generativeai
+sqlalchemy
+passlib[bcrypt]
+python-jose
 python-dotenv
-pydantic
+razorpay
 httpx
-python-multipart
-fastapi[all] 
+google-generativeai 
