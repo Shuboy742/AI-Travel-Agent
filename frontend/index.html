@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered travel assistant for booking flights, hotels, and transportation">
+    <meta name="keywords" content="travel, booking, AI, flights, hotels, transportation">
+    <title>AI Travel Agent - Your Intelligent Travel Companion</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="#home">
+                        <i class="fas fa-plane-departure"></i>
+                        <span>AI Travel Agent</span>
+                    </a>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#flights" class="nav-link">Flights</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#hotels" class="nav-link">Hotels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#transport" class="nav-link">Transport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+                
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Your AI-Powered Travel Companion
+                    </h1>
+                    <p class="hero-subtitle">
+                        Book flights, hotels, and transportation with intelligent AI assistance. 
+                        Get personalized recommendations and 24/7 travel support.
+                    </p>
+                    
+                    <!-- Search Form -->
+                    <div class="search-container">
+                        <div class="search-tabs">
+                            <button class="tab-btn active" data-tab="flights">
+                                <i class="fas fa-plane"></i> Flights
+                            </button>
+                            <button class="tab-btn" data-tab="hotels">
+                                <i class="fas fa-bed"></i> Hotels
+                            </button>
+                            <button class="tab-btn" data-tab="transport">
+                                <i class="fas fa-car"></i> Transport
+                            </button>
+                        </div>
+                        
+                        <!-- Flight Search Form -->
+                        <form class="search-form active" id="flightSearchForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="from">From</label>
+                                    <input type="text" id="from" placeholder="Departure city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="to">To</label>
+                                    <input type="text" id="to" placeholder="Destination city" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="departDate">Departure</label>
+                                    <input type="date" id="departDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="returnDate">Return</label>
+                                    <input type="date" id="returnDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="passengers">Passengers</label>
+                                    <select id="passengers">
+                                        <option value="1">1 Passenger</option>
+                                        <option value="2">2 Passengers</option>
+                                        <option value="3">3 Passengers</option>
+                                        <option value="4">4 Passengers</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">
+                                <i class="fas fa-search"></i> Search Flights
+                            </button>
+                        </form>
+                        
+                        <!-- Hotel Search Form -->
+                        <form class="search-form" id="hotelSearchForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="hotelLocation">Destination</label>
+                                    <input type="text" id="hotelLocation" placeholder="City, hotel, or landmark" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkIn">Check-in</label>
+                                    <input type="date" id="checkIn" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkOut">Check-out</label>
+                                    <input type="date" id="checkOut" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="guests">Guests</label>
+                                    <select id="guests">
+                                        <option value="1">1 Guest</option>
+                                        <option value="2">2 Guests</option>
+                                        <option value="3">3 Guests</option>
+                                        <option value="4">4+ Guests</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rooms">Rooms</label>
+                                    <select id="rooms">
+                                        <option value="1">1 Room</option>
+                                        <option value="2">2 Rooms</option>
+                                        <option value="3">3 Rooms</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">
+                                <i class="fas fa-search"></i> Search Hotels
+                            </button>
+                        </form>
+                        
+                        <!-- Transport Search Form -->
+                        <form class="search-form" id="transportSearchForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pickup">Pickup Location</label>
+                                    <input type="text" id="pickup" placeholder="Airport, hotel, or address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropoff">Dropoff Location</label>
+                                    <input type="text" id="dropoff" placeholder="Destination address" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="transportDate">Date</label>
+                                    <input type="date" id="transportDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transportTime">Time</label>
+                                    <input type="time" id="transportTime" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transportType">Service Type</label>
+                                    <select id="transportType">
+                                        <option value="taxi">Taxi</option>
+                                        <option value="uber">Uber</option>
+                                        <option value="limo">Limo</option>
+                                        <option value="shuttle">Shuttle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">
+                                <i class="fas fa-search"></i> Book Transport
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="images/hero-travel.jpg" alt="Travel destinations collage">
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chat Widget -->
+        <div class="ai-chat-widget" id="aiChatWidget">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Travel Assistant</span>
+                </div>
+                <button class="chat-toggle" id="chatToggle">
+                    <i class="fas fa-comments"></i>
+                </button>
+            </div>
+            
+            <div class="chat-body" id="chatBody">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello! I'm your AI travel assistant. I can help you find flights, hotels, and transportation. What would you like to book today?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Ask me anything about travel...">
+                    <button class="send-btn" id="sendMessage">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Why Choose AI Travel Agent?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI-Powered Intelligence</h3>
+                        <p>Advanced AI understands your travel preferences and provides personalized recommendations.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>24/7 Availability</h3>
+                        <p>Get travel assistance anytime, anywhere with our round-the-clock AI support.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure Booking</h3>
+                        <p>Your data and payments are protected with industry-leading security standards.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Mobile Optimized</h3>
+                        <p>Book your travel on any device with our responsive, mobile-friendly interface.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section (Hidden by default) -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="container">
+                <div class="results-header">
+                    <h2 class="section-title">Search Results</h2>
+                    <div class="results-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="price">Price</button>
+                        <button class="filter-btn" data-filter="duration">Duration</button>
+                        <button class="filter-btn" data-filter="rating">Rating</button>
+                    </div>
+                </div>
+                
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Results will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AI Travel Agent</h3>
+                    <p>Your intelligent travel companion powered by AI technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#flights">Flight Booking</a></li>
+                        <li><a href="#hotels">Hotel Reservations</a></li>
+                        <li><a href="#transport">Transportation</a></li>
+                        <li><a href="#ai">AI Assistant</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#feedback">Feedback</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 AI Travel Agent. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Templates -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login</h3>
+                <button class="modal-close" id="closeLoginModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign Up</h3>
+                <button class="modal-close" id="closeSignupModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-form" id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Searching for the best options...</p>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Backend is working!"} 
