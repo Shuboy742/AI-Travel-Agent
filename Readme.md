@@ -180,21 +180,21 @@ MIT
 ---
 
 ## Results
-<img width="1293" height="699" alt="AI1" src="https://github.com/user-attachments/assets/565b7ba8-1bcb-409e-834f-594eddae5c82" />
+<img width="1293" height="699" alt="AI1" src="https://github.com/user-attachments/assets/565b7ba8-1bcb-409e-834f-594eddae5c82" /> <br>
 
-<img width="1291" height="700" alt="ai2" src="https://github.com/user-attachments/assets/6d3dd701-dc93-478a-9b21-ece0170f2b1f" />
+<img width="1291" height="700" alt="ai2" src="https://github.com/user-attachments/assets/6d3dd701-dc93-478a-9b21-ece0170f2b1f" /> <br>
 
-<img width="1290" height="701" alt="ai3" src="https://github.com/user-attachments/assets/57c266c7-4c7b-43f8-8070-3083b0c94b3e" />
+<img width="1290" height="701" alt="ai3" src="https://github.com/user-attachments/assets/57c266c7-4c7b-43f8-8070-3083b0c94b3e" /> <br>
 
-<img width="1292" height="698" alt="ai4" src="https://github.com/user-attachments/assets/c97c5104-decb-41cd-97ed-d871248f2976" />
+<img width="1292" height="698" alt="ai4" src="https://github.com/user-attachments/assets/c97c5104-decb-41cd-97ed-d871248f2976" /> <br>
 
-<img width="1295" height="698" alt="ai6" src="https://github.com/user-attachments/assets/c1c9a9bd-ecba-4717-8f2b-77998d52c1d4" />
+<img width="1295" height="698" alt="ai6" src="https://github.com/user-attachments/assets/c1c9a9bd-ecba-4717-8f2b-77998d52c1d4" /> <br>
 
-<img width="1297" height="701" alt="ai7" src="https://github.com/user-attachments/assets/c9c0e743-99b4-42ed-88fc-847d025b26fe" />
+<img width="1297" height="701" alt="ai7" src="https://github.com/user-attachments/assets/c9c0e743-99b4-42ed-88fc-847d025b26fe" /> <br>
 
-<img width="1292" height="703" alt="ai8" src="https://github.com/user-attachments/assets/d09fc1e0-7747-4b2c-9e01-29d90c9b6cfa" />
+<img width="1292" height="703" alt="ai8" src="https://github.com/user-attachments/assets/d09fc1e0-7747-4b2c-9e01-29d90c9b6cfa" /> <br>
 
-<img width="1298" height="699" alt="ai9" src="https://github.com/user-attachments/assets/785ca270-4e15-436d-876b-6ffad620e35b" />
+<img width="1298" height="699" alt="ai9" src="https://github.com/user-attachments/assets/785ca270-4e15-436d-876b-6ffad620e35b" /> <br>
 
 ---
 **Designed by Shubham Kambale**
