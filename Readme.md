@@ -7,27 +7,33 @@ A full-stack AI-powered travel agent application with a Python FastAPI backend a
 
 ## Context Engineering
 
-**Context engineering** is the practice of designing, structuring, and managing the information (context) that an AI system uses to generate intelligent, relevant, and personalized responses.
+Context Engineering
+Context engineering is the practice of designing, structuring, and managing the information (context) that an AI system uses to generate intelligent, relevant, and personalized responses.
 
-- The AI chatbot leverages context engineering to:
-  - Remember user preferences, previous queries, and booking history within a session.
-  - Provide multi-turn, context-aware conversations (e.g., "Book me a hotel in the same city as my last flight").
-  - Adapt responses based on user profile, travel history, and ongoing conversation.
-- Context is managed in the backend and passed to the Gemini model, enabling more natural, helpful, and personalized travel assistance.
+How It's Used in This Project
+
+The AI chatbot leverages context engineering to:
+
+Remember user preferences, previous queries, and booking history within a session.
+Provide multi-turn, context-aware conversations 
+Adapt responses based on user profile, travel history, and ongoing conversation.
+Context is managed in the backend and passed to the Gemini model, enabling more natural, helpful, and personalized travel assistance.
+Role of .md Context Files
+
+This project includes several key Markdown (.md) files that are essential for context engineering and structured development:
+**1.PRD.md** – Product Requirements Document: Outlines the vision, features, and goals of the project.
+**2.implementation.md** – Step-by-step implementation plan, tech stack decisions, and development milestones.
+**3.UI_UX.md** – User interface and user experience guidelines, wireframes, and design principles.
+**4.Bug-Tracking.md** – Used to log, track, and resolve bugs throughout the project lifecycle.
+**5.project-structure.md** – Explains the directory and file organization, naming conventions, and modularization strategy.
+**6.workflow.md** – (If present) Describes the recommended development workflow, including branching, code review, and deployment practices.
+**7.generate.md** – (If present) Used for code generation instructions, prompts, or AI-assisted development notes.
+
+> Tip:
+> Spend 2–3 hours carefully designing and customizing these .md files according to your project’s needs.
+> Well-maintained context files make your project easier to understand, extend, and maintain for both humans and AI-powered tools. They ensure that everyone (and every tool) working on the project has a shared understanding of requirements, design, workflow, and architecture. This enables more intelligent automation, better onboarding, and more effective collaboration.
 
 ---
-
-## Documentation & Context Files
-
-- **PRD.md** – Product Requirements Document
-- **implementation.md** – Implementation plan and tech stack
-- **UI_UX.md** – UI/UX guidelines and wireframes
-- **Bug-Tracking.md** – Bug tracking and resolution
-- **project-structure.md** – Directory and file organization
-
----
-
-## Tech Stack
 
 ### Frontend
 - **HTML5, CSS3, JavaScript (vanilla)**
