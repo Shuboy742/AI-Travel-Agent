@@ -20,14 +20,14 @@ Adapt responses based on user profile, travel history, and ongoing conversation.
 Context is managed in the backend and passed to the Gemini model, enabling more natural, helpful, and personalized travel assistance.
 Role of .md Context Files
 
-This project includes several key Markdown (.md) files that are essential for context engineering and structured development:
-**1.PRD.md** – Product Requirements Document: Outlines the vision, features, and goals of the project.
-**2.implementation.md** – Step-by-step implementation plan, tech stack decisions, and development milestones.
-**3.UI_UX.md** – User interface and user experience guidelines, wireframes, and design principles.
-**4.Bug-Tracking.md** – Used to log, track, and resolve bugs throughout the project lifecycle.
-**5.project-structure.md** – Explains the directory and file organization, naming conventions, and modularization strategy.
-**6.workflow.md** – (If present) Describes the recommended development workflow, including branching, code review, and deployment practices.
-**7.generate.md** – (If present) Used for code generation instructions, prompts, or AI-assisted development notes.
+This project includes several key Markdown (.md) files that are essential for context engineering and structured development:  
+**1. PRD.md** – Product Requirements Document: Outlines the vision, features, and goals of the project.  
+**2. implementation.md** – Step-by-step implementation plan, tech stack decisions, and development milestones.  
+**3. UI_UX.md** – User interface and user experience guidelines, wireframes, and design principles.  
+**4. Bug-Tracking.md** – Used to log, track, and resolve bugs throughout the project lifecycle.  
+**5. project-structure.md** – Explains the directory and file organization, naming conventions, and modularization strategy.  
+**6. workflow.md** – (If present) Describes the recommended development workflow, including branching, code review, and deployment practices.  
+**7. generate.md** – (If present) Used for code generation instructions, prompts, or AI-assisted development notes.
 
 > Tip:
 > Spend 2–3 hours carefully designing and customizing these .md files according to your project’s needs.
