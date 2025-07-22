@@ -1,1 +1,14 @@
-/* Component-specific styles placeholder */ 
+/* Component-specific styles placeholder */
+
+/* Airline logo size constraint */
+.result-card .airline-info img {
+    max-width: 48px !important;
+    max-height: 48px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 6px !important;
+    margin-right: 8px !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
+} 

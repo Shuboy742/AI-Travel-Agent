@@ -244,6 +244,25 @@ function handleResize() {
     }
 }
 
+// City to IATA code mapping
+const cityToIata = {
+    'pune': 'PNQ',
+    'delhi': 'DEL',
+    'mumbai': 'BOM',
+    'new york': 'JFK',
+    'los angeles': 'LAX',
+    'san francisco': 'SFO',
+    'bangalore': 'BLR',
+    'chennai': 'MAA',
+    'hyderabad': 'HYD',
+    // Add more as needed
+};
+
+function getIataCode(city) {
+    if (!city) return '';
+    return cityToIata[city.trim().toLowerCase()] || city.trim().toUpperCase();
+}
+
 /**
  * Handle flight search
  */
@@ -251,9 +270,11 @@ async function handleFlightSearch(e) {
     e.preventDefault();
     
     const formData = new FormData(e.target);
+    let from = formData.get('from') || document.getElementById('from').value;
+    let to = formData.get('to') || document.getElementById('to').value;
     const searchData = {
-        from: formData.get('from') || document.getElementById('from').value,
-        to: formData.get('to') || document.getElementById('to').value,
+        from: getIataCode(from),
+        to: getIataCode(to),
         departDate: formData.get('departDate') || document.getElementById('departDate').value,
         returnDate: formData.get('returnDate') || document.getElementById('returnDate').value,
         passengers: formData.get('passengers') || document.getElementById('passengers').value
@@ -399,7 +420,7 @@ function createFlightCard(flight) {
     return `
         <div class="result-card-header">
             <div class="airline-info">
-                <img src="${flight.airlineLogo || 'images/airline-default.png'}" alt="${flight.airline}">
+                <img style="max-width:48px;max-height:48px;object-fit:contain;border-radius:6px;margin-right:8px;vertical-align:middle;" src="${getAirlineLogo(flight.airline)}" alt="${flight.airline}">
                 <span>${flight.airline}</span>
             </div>
             <div class="price">$${flight.price}</div>
@@ -407,16 +428,16 @@ function createFlightCard(flight) {
         <div class="flight-details">
             <div class="flight-route">
                 <div class="departure">
-                    <div class="time">${flight.departureTime}</div>
-                    <div class="airport">${flight.departureAirport}</div>
+                    <div class="time">${flight.depart_time}</div>
+                    <div class="airport">${flight.from_city}</div>
                 </div>
                 <div class="flight-line">
-                    <div class="duration">${flight.duration}</div>
+                    <div class="duration">-</div>
                     <div class="stops">${flight.stops} stop${flight.stops !== 1 ? 's' : ''}</div>
                 </div>
                 <div class="arrival">
-                    <div class="time">${flight.arrivalTime}</div>
-                    <div class="airport">${flight.arrivalAirport}</div>
+                    <div class="time">${flight.arrive_time}</div>
+                    <div class="airport">${flight.to_city}</div>
                 </div>
             </div>
         </div>
@@ -751,24 +772,125 @@ function logout() {
 }
 
 // Booking functions (to be implemented)
-function bookFlight(flightId) {
-    console.log('Booking flight:', flightId);
-    showNotification('Booking functionality coming soon!', 'info');
+import { searchFlights, searchHotels, searchTransport, bookFlight, bookHotel, bookTransport } from './api.js';
+
+// Replace booking functions with real API calls
+// Razorpay payment integration for flight booking
+async function bookFlightHandler(flightId) {
+    try {
+        showLoading(true);
+        // Find the selected flight details
+        const flight = AppState.searchResults.find(f => f.id == flightId);
+        if (!flight) {
+            showNotification('Flight not found.', 'error');
+            return;
+        }
+        // Call backend to create Razorpay order
+        const amount = 1000; // Set a dummy amount or use flight.price if available
+        const paymentRes = await fetch('/api/payments/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount, currency: 'INR', flight })
+        });
+        const paymentData = await paymentRes.json();
+        if (!paymentRes.ok) throw new Error(paymentData.detail || 'Payment order creation failed');
+        // Open Razorpay modal
+        const options = {
+            key: paymentData.razorpay_key_id,
+            amount: paymentData.order.amount,
+            currency: paymentData.order.currency,
+            order_id: paymentData.order.id,
+            name: 'AI Travel Agent',
+            description: 'Flight Booking',
+            handler: async function (response) {
+                // On payment success, create booking
+                try {
+                    const bookingRes = await fetch('/api/bookings/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ type: 'flight', id: flightId })
+                    });
+                    const bookingData = await bookingRes.json();
+                    if (!bookingRes.ok) throw new Error(bookingData.detail || 'Booking failed');
+                    showNotification('Flight booked and payment successful!', 'success');
+                } catch (err) {
+                    showNotification('Payment succeeded but booking failed.', 'error');
+                }
+            },
+            prefill: {},
+            notes: {},
+            theme: { color: '#2563EB' }
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    } catch (error) {
+        showNotification('Payment/Booking failed: ' + error.message, 'error');
+    } finally {
+        showLoading(false);
+    }
 }
 
-function bookHotel(hotelId) {
-    console.log('Booking hotel:', hotelId);
-    showNotification('Booking functionality coming soon!', 'info');
+async function bookHotelHandler(hotelId) {
+    try {
+        showLoading(true);
+        const result = await bookHotel(hotelId);
+        showNotification('Hotel booked successfully!', 'success');
+    } catch (error) {
+        showNotification('Hotel booking failed.', 'error');
+    } finally {
+        showLoading(false);
+    }
 }
 
-function bookTransport(transportId) {
-    console.log('Booking transport:', transportId);
-    showNotification('Booking functionality coming soon!', 'info');
+async function bookTransportHandler(transportId) {
+    try {
+        showLoading(true);
+        const result = await bookTransport(transportId);
+        showNotification('Transport booked successfully!', 'success');
+    } catch (error) {
+        showNotification('Transport booking failed.', 'error');
+    } finally {
+        showLoading(false);
+    }
 }
 
+// Attach booking handlers to window for inline onclick usage
+window.bookFlight = bookFlightHandler;
+window.bookHotel = bookHotelHandler;
+window.bookTransport = bookTransportHandler;
+
+// Flight details modal
 function viewFlightDetails(flightId) {
-    console.log('Viewing flight details:', flightId);
-    showNotification('Details view coming soon!', 'info');
+    const flight = AppState.searchResults.find(f => f.id == flightId);
+    if (!flight) {
+        showNotification('Flight not found.', 'error');
+        return;
+    }
+    // Create modal HTML
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Flight Details</h3>
+                <button class="modal-close" id="closeFlightDetailsModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Airline:</strong> ${flight.airline}</p>
+                <p><strong>From:</strong> ${flight.from_city}</p>
+                <p><strong>To:</strong> ${flight.to_city}</p>
+                <p><strong>Departure:</strong> ${flight.depart_time}</p>
+                <p><strong>Arrival:</strong> ${flight.arrive_time}</p>
+                <p><strong>Price:</strong> ${flight.price || '-'}</p>
+                <p><strong>Stops:</strong> ${flight.stops}</p>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('closeFlightDetailsModal').onclick = () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    };
 }
 
 function viewHotelDetails(hotelId) {
@@ -781,6 +903,18 @@ function viewTransportDetails(transportId) {
     showNotification('Details view coming soon!', 'info');
 }
 
+/**
+ * Get airline logo
+ */
+function getAirlineLogo(airline) {
+    const logos = {
+        'Delta': 'images/delta.png',
+        'United': 'images/united.jpeg' // Use .jpeg for United
+        // Add more airlines as needed
+    };
+    return logos[airline] || 'images/airline-default.png';
+}
+
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', initApp);
 
@@ -788,3 +922,4 @@ document.addEventListener('DOMContentLoaded', initApp);
 window.AppState = AppState;
 window.showNotification = showNotification;
 window.showLoading = showLoading; 
+window.viewFlightDetails = viewFlightDetails; 

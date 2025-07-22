@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from ..models import BookingOut
 import datetime
 
@@ -7,9 +7,22 @@ router = APIRouter(prefix="/bookings", tags=["bookings"])
 bookings = []
 
 @router.post("/", response_model=BookingOut)
-def create_booking(booking: BookingOut):
-    booking.id = len(bookings) + 1
-    booking.created_at = datetime.datetime.utcnow()
+def create_booking(request: Request):
+    data = request.json() if hasattr(request, 'json') else None
+    # For FastAPI, use await request.json()
+    import asyncio
+    async def get_data():
+        return await request.json()
+    data = asyncio.run(get_data())
+    # Accept {type: 'flight', id: 1} and map to BookingOut
+    booking = BookingOut(
+        id=len(bookings) + 1,
+        user_id=1,  # Dummy user
+        booking_type=data.get('type', 'flight'),
+        item_id=data.get('id', 1),
+        status='confirmed',
+        created_at=datetime.datetime.utcnow()
+    )
     bookings.append(booking)
     return booking
 
