@@ -1,515 +1,336 @@
 # AI Travel Agent - Project Structure
 
-## Root Directory Structure
-
-```
-ai-travel-agent/
-├── frontend/                     # React.js frontend application
-│   ├── public/
-│   │   ├── index.html
-│   │   ├── favicon.ico
-│   │   ├── manifest.json
-│   │   └── robots.txt
-│   ├── src/
-│   │   ├── components/           # Reusable UI components
-│   │   │   ├── common/          # Generic components
-│   │   │   ├── forms/           # Form components
-│   │   │   ├── ui/              # UI elements (buttons, inputs, etc.)
-│   │   │   └── layout/          # Layout components
-│   │   ├── pages/               # Page components
-│   │   │   ├── auth/           # Authentication pages
-│   │   │   ├── booking/        # Booking-related pages
-│   │   │   ├── dashboard/      # User dashboard
-│   │   │   └── travel/         # Travel-specific pages
-│   │   ├── services/            # API services and HTTP clients
-│   │   ├── hooks/               # Custom React hooks
-│   │   ├── store/               # Redux store configuration
-│   │   │   ├── slices/         # Redux slices
-│   │   │   └── middleware/     # Custom middleware
-│   │   ├── utils/               # Utility functions
-│   │   ├── constants/           # Application constants
-│   │   ├── types/               # TypeScript type definitions
-│   │   ├── assets/              # Static assets
-│   │   │   ├── images/
-│   │   │   ├── icons/
-│   │   │   └── styles/
-│   │   ├── App.tsx              # Main App component
-│   │   ├── index.tsx            # Entry point
-│   │   └── index.css            # Global styles
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── tailwind.config.js
-│   └── .env
-├── backend/                      # Node.js backend application
-│   ├── src/
-│   │   ├── controllers/         # Request controllers
-│   │   │   ├── auth.controller.ts
-│   │   │   ├── booking.controller.ts
-│   │   │   ├── flight.controller.ts
-│   │   │   ├── hotel.controller.ts
-│   │   │   ├── cab.controller.ts
-│   │   │   └── ai.controller.ts
-│   │   ├── models/              # Database models
-│   │   │   ├── User.model.ts
-│   │   │   ├── Booking.model.ts
-│   │   │   ├── Flight.model.ts
-│   │   │   ├── Hotel.model.ts
-│   │   │   └── Conversation.model.ts
-│   │   ├── routes/              # API route definitions
-│   │   │   ├── auth.routes.ts
-│   │   │   ├── booking.routes.ts
-│   │   │   ├── travel.routes.ts
-│   │   │   └── ai.routes.ts
-│   │   ├── middleware/          # Express middleware
-│   │   │   ├── auth.middleware.ts
-│   │   │   ├── validation.middleware.ts
-│   │   │   ├── error.middleware.ts
-│   │   │   └── rate-limit.middleware.ts
-│   │   ├── services/            # Business logic services
-│   │   │   ├── auth.service.ts
-│   │   │   ├── flight.service.ts
-│   │   │   ├── hotel.service.ts
-│   │   │   ├── cab.service.ts
-│   │   │   ├── payment.service.ts
-│   │   │   └── gemini.service.ts
-│   │   ├── utils/               # Utility functions
-│   │   │   ├── database.ts
-│   │   │   ├── logger.ts
-│   │   │   ├── email.ts
-│   │   │   └── validation.ts
-│   │   ├── config/              # Configuration files
-│   │   │   ├── database.config.ts
-│   │   │   ├── redis.config.ts
-│   │   │   └── app.config.ts
-│   │   ├── types/               # TypeScript interfaces
-│   │   │   ├── auth.types.ts
-│   │   │   ├── booking.types.ts
-│   │   │   └── api.types.ts
-│   │   ├── app.ts               # Express app configuration
-│   │   └── server.ts            # Server entry point
-│   ├── tests/                   # Test files
-│   │   ├── unit/
-│   │   ├── integration/
-│   │   └── helpers/
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── jest.config.js
-│   └── .env
-├── shared/                       # Shared types and utilities
-│   ├── types/                   # Common TypeScript types
-│   └── constants/               # Shared constants
-├── docs/                        # Project documentation
-│   ├── Implementation.md
-│   ├── project_structure.md
-│   ├── UI_UX_doc.md
-│   ├── Bug_tracking.md
-│   └── api/                     # API documentation
-├── scripts/                     # Build and deployment scripts
-│   ├── build.sh
-│   ├── deploy.sh
-│   └── setup.sh
-├── docker/                      # Docker configuration
-│   ├── Dockerfile.frontend
-│   ├── Dockerfile.backend
-│   └── docker-compose.yml
-├── .gitignore
-├── README.md
-└── package.json                 # Root package.json for workspace
-```
-
-## Detailed Structure Explanation
-
-### Frontend Structure (`/frontend`)
-
-#### Components Organization
-- **`/components/common`** - Reusable components like Header, Footer, LoadingSpinner
-- **`/components/forms`** - Form components for booking, registration, etc.
-- **`/components/ui`** - Basic UI elements (Button, Input, Modal, Card)
-- **`/components/layout`** - Layout wrappers and navigation components
-
-#### Pages Organization
-- **`/pages/auth`** - Login, Register, ForgotPassword pages
-- **`/pages/booking`** - Flight, Hotel, Cab booking pages
-- **`/pages/dashboard`** - User dashboard, booking history, profile
-- **`/pages/travel`** - Travel search, results, details pages
-
-#### Services Layer
-- **API clients** for backend communication
-- **Third-party integrations** (payment, maps, etc.)
-- **Authentication service** for JWT handling
-
-### Backend Structure (`/backend`)
-
-#### Controllers Layer
-- Handle HTTP requests and responses
-- Input validation and sanitization
-- Call appropriate services
-- Format API responses
-
-#### Models Layer
-- **User.model.ts** - User schema with authentication fields
-- **Booking.model.ts** - Unified booking schema for flights, hotels, cabs
-- **Flight.model.ts** - Flight-specific data schema
-- **Hotel.model.ts** - Hotel information schema
-- **Conversation.model.ts** - AI chat history schema
-
-#### Services Layer
-- **Business logic implementation**
-- **Third-party API integrations**
-- **Database operations**
-- **AI processing with Gemini**
-
-#### Middleware
-- **Authentication** - JWT verification
-- **Validation** - Request data validation
-- **Error handling** - Centralized error processing
-- **Rate limiting** - API usage control
-
-### Configuration Files
-
-#### Frontend Configuration
-- **`tailwind.config.js`** - Tailwind CSS customization
-- **`tsconfig.json`** - TypeScript compiler options
-- **`.env`** - Environment variables (API URLs, keys)
-
-#### Backend Configuration
-- **`tsconfig.json`** - TypeScript configuration
-- **`jest.config.js`** - Testing framework setup
-- **`.env`** - Server configuration and API keys
-
-## File Naming Conventions
-
-### TypeScript Files
-- **Components:** PascalCase (e.g., `FlightSearch.tsx`)
-- **Services:** camelCase with .service suffix (e.g., `flight.service.ts`)
-- **Controllers:** camelCase with .controller suffix (e.g., `booking.controller.ts`)
-- **Models:** PascalCase with .model suffix (e.g., `User.model.ts`)
-- **Types:** camelCase with .types suffix (e.g., `booking.types.ts`)
-
-### Directory Conventions
-- All directories use **kebab-case** or **camelCase**
-- Component directories match component names
-- Service directories group related functionality
-
-## Module Organization Patterns
-
-### Import Structure
-```typescript
-// External library imports
-import React from 'react';
-import { Express } from 'express';
-
-// Internal imports (absolute paths)
-import { UserService } from '@/services/user.service';
-import { BookingTypes } from '@/types/booking.types';
-
-// Relative imports (for closely related files)
-import './Component.styles.css';
-```
-
-### Export Patterns
-```typescript
-// Named exports for utilities and services
-export { FlightService } from './flight.service';
-
-// Default exports for components and main modules
-export default FlightSearch;
-```
-
-## Environment Configuration
-
-### Development Environment
-- Frontend runs on `http://localhost:3000`
-- Backend API runs on `http://localhost:5000`
-- MongoDB on `mongodb://localhost:27017`
-- Redis on `redis://localhost:6379`
-
-### Production Environment
-- Environment variables for all service URLs
-- Secure API key management
-- Database connection pooling
-- CDN configuration for static assets
-
-## Build and Deployment Structure
-
-### Development Build
-- **Frontend:** Create React App development server
-- **Backend:** ts-node with nodemon for hot reload
-- **Database:** Local MongoDB and Redis instances
-
-### Production Build
-- **Frontend:** Optimized React build with code splitting
-- **Backend:** Compiled TypeScript to JavaScript
-- **Containerization:** Docker containers for each service
-- **Orchestration:** Docker Compose for local, Kubernetes for production
-
-## Testing Structure
-
-### Frontend Tests
-- **Unit tests:** Component testing with Jest and React Testing Library
-- **Integration tests:** API integration testing
-- **E2E tests:** End-to-end user flow testing
-
-### Backend Tests
-- **Unit tests:** Service and utility function tests
-- **Integration tests:** API endpoint testing
-- **Database tests:** Model and query testing
-
-This structure provides a scalable foundation for the AI Travel Agent application, ensuring clear separation of concerns, maintainable code organization, and efficient development workflows.# AI Travel Agent - Project Structure
+## Overview
+This document provides a comprehensive overview of the AI Travel Agent project structure, which is built with a **Python FastAPI backend** and **vanilla HTML/CSS/JavaScript frontend**. The project implements context engineering for AI-powered travel assistance using Google Gemini.
 
 ## Root Directory Structure
 
 ```
-ai-travel-agent/
-├── frontend/                     # React.js frontend application
-│   ├── public/
-│   │   ├── index.html
-│   │   ├── favicon.ico
-│   │   ├── manifest.json
-│   │   └── robots.txt
-│   ├── src/
-│   │   ├── components/           # Reusable UI components
-│   │   │   ├── common/          # Generic components
-│   │   │   ├── forms/           # Form components
-│   │   │   ├── ui/              # UI elements (buttons, inputs, etc.)
-│   │   │   └── layout/          # Layout components
-│   │   ├── pages/               # Page components
-│   │   │   ├── auth/           # Authentication pages
-│   │   │   ├── booking/        # Booking-related pages
-│   │   │   ├── dashboard/      # User dashboard
-│   │   │   └── travel/         # Travel-specific pages
-│   │   ├── services/            # API services and HTTP clients
-│   │   ├── hooks/               # Custom React hooks
-│   │   ├── store/               # Redux store configuration
-│   │   │   ├── slices/         # Redux slices
-│   │   │   └── middleware/     # Custom middleware
-│   │   ├── utils/               # Utility functions
-│   │   ├── constants/           # Application constants
-│   │   ├── types/               # TypeScript type definitions
-│   │   ├── assets/              # Static assets
-│   │   │   ├── images/
-│   │   │   ├── icons/
-│   │   │   └── styles/
-│   │   ├── App.tsx              # Main App component
-│   │   ├── index.tsx            # Entry point
-│   │   └── index.css            # Global styles
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── tailwind.config.js
-│   └── .env
-├── backend/                      # Node.js backend application
-│   ├── src/
-│   │   ├── controllers/         # Request controllers
-│   │   │   ├── auth.controller.ts
-│   │   │   ├── booking.controller.ts
-│   │   │   ├── flight.controller.ts
-│   │   │   ├── hotel.controller.ts
-│   │   │   ├── cab.controller.ts
-│   │   │   └── ai.controller.ts
-│   │   ├── models/              # Database models
-│   │   │   ├── User.model.ts
-│   │   │   ├── Booking.model.ts
-│   │   │   ├── Flight.model.ts
-│   │   │   ├── Hotel.model.ts
-│   │   │   └── Conversation.model.ts
-│   │   ├── routes/              # API route definitions
-│   │   │   ├── auth.routes.ts
-│   │   │   ├── booking.routes.ts
-│   │   │   ├── travel.routes.ts
-│   │   │   └── ai.routes.ts
-│   │   ├── middleware/          # Express middleware
-│   │   │   ├── auth.middleware.ts
-│   │   │   ├── validation.middleware.ts
-│   │   │   ├── error.middleware.ts
-│   │   │   └── rate-limit.middleware.ts
-│   │   ├── services/            # Business logic services
-│   │   │   ├── auth.service.ts
-│   │   │   ├── flight.service.ts
-│   │   │   ├── hotel.service.ts
-│   │   │   ├── cab.service.ts
-│   │   │   ├── payment.service.ts
-│   │   │   └── gemini.service.ts
-│   │   ├── utils/               # Utility functions
-│   │   │   ├── database.ts
-│   │   │   ├── logger.ts
-│   │   │   ├── email.ts
-│   │   │   └── validation.ts
-│   │   ├── config/              # Configuration files
-│   │   │   ├── database.config.ts
-│   │   │   ├── redis.config.ts
-│   │   │   └── app.config.ts
-│   │   ├── types/               # TypeScript interfaces
-│   │   │   ├── auth.types.ts
-│   │   │   ├── booking.types.ts
-│   │   │   └── api.types.ts
-│   │   ├── app.ts               # Express app configuration
-│   │   └── server.ts            # Server entry point
-│   ├── tests/                   # Test files
-│   │   ├── unit/
-│   │   ├── integration/
-│   │   └── helpers/
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── jest.config.js
-│   └── .env
-├── shared/                       # Shared types and utilities
-│   ├── types/                   # Common TypeScript types
-│   └── constants/               # Shared constants
-├── docs/                        # Project documentation
-│   ├── Implementation.md
-│   ├── project_structure.md
-│   ├── UI_UX_doc.md
-│   ├── Bug_tracking.md
-│   └── api/                     # API documentation
-├── scripts/                     # Build and deployment scripts
-│   ├── build.sh
-│   ├── deploy.sh
-│   └── setup.sh
-├── docker/                      # Docker configuration
-│   ├── Dockerfile.frontend
-│   ├── Dockerfile.backend
-│   └── docker-compose.yml
-├── .gitignore
-├── README.md
-└── package.json                 # Root package.json for workspace
+AI_Agent_travel_booking/
+├── backend/                      # Python FastAPI backend application
+│   ├── app/                     # Main application package
+│   │   ├── main.py              # FastAPI application entry point
+│   │   ├── database.py          # SQLAlchemy database configuration
+│   │   ├── models.py            # Database models and Pydantic schemas
+│   │   ├── auth.py              # JWT authentication endpoints
+│   │   ├── routes/              # API route modules
+│   │   │   ├── flights.py       # Flight search and booking endpoints
+│   │   │   ├── hotels.py        # Hotel search and booking endpoints
+│   │   │   ├── transport.py     # Transport search endpoints
+│   │   │   ├── bookings.py      # Booking management endpoints
+│   │   │   ├── users.py         # User profile and preferences
+│   │   │   └── payments.py      # Razorpay payment integration
+│   │   └── services/            # Business logic services (future use)
+│   ├── travel_agent.db          # SQLite database file
+│   ├── package.json             # Node.js dependencies (legacy)
+│   └── venv/                    # Python virtual environment
+├── frontend/                     # Static HTML/CSS/JS frontend
+│   ├── index.html               # Main application page
+│   ├── css/                     # Stylesheets
+│   │   ├── main.css             # Main stylesheet with modern CSS
+│   │   ├── reset.css            # CSS reset for cross-browser consistency
+│   │   ├── responsive.css       # Responsive design styles
+│   │   └── components.css       # Component-specific styles
+│   ├── js/                      # JavaScript modules
+│   │   ├── main.js              # Main application logic and initialization
+│   │   ├── api.js               # API service layer for backend communication
+│   │   ├── chat.js              # AI chatbot functionality and UI
+│   │   ├── auth.js              # Authentication handling
+│   │   ├── search.js            # Search functionality
+│   │   ├── ui.js                # UI interactions and animations
+│   │   ├── utils.js             # Utility functions and helpers
+│   │   └── config.js            # Configuration settings
+│   ├── images/                  # Image assets
+│   └── assets/                  # Other static assets (favicon, etc.)
+├── Docs/                        # Project documentation
+│   ├── project_structure.md     # This file - detailed project structure
+│   ├── Bug_tracking.md          # Bug tracking and issue management
+│   ├── UI_UX.md                 # UI/UX design guidelines and wireframes
+│   └── implementation.md        # Implementation details and technical specs
+├── shared/                      # Shared resources
+│   ├── constants/               # Shared constants (future use)
+│   └── types/                   # Shared type definitions (future use)
+├── app/                         # Additional app directory (legacy)
+├── venv/                        # Root virtual environment
+├── .venv/                       # Alternative virtual environment
+├── PRD.md                       # Product Requirements Document
+├── requirements.txt             # Python dependencies
+├── .gitignore                   # Git ignore rules
+└── Readme.md                    # Project documentation
 ```
 
-## Detailed Structure Explanation
+## Backend Structure (Python FastAPI)
 
-### Frontend Structure (`/frontend`)
+### Core Application Files
 
-#### Components Organization
-- **`/components/common`** - Reusable components like Header, Footer, LoadingSpinner
-- **`/components/forms`** - Form components for booking, registration, etc.
-- **`/components/ui`** - Basic UI elements (Button, Input, Modal, Card)
-- **`/components/layout`** - Layout wrappers and navigation components
+#### `backend/app/main.py`
+- **Purpose**: FastAPI application entry point
+- **Key Features**:
+  - CORS middleware configuration
+  - Database initialization
+  - Router registration for all API endpoints
+  - Static file serving for frontend
+  - AI chatbot endpoint (`/api/ai/chat`) with Google Gemini integration
+  - Error handling and debugging
 
-#### Pages Organization
-- **`/pages/auth`** - Login, Register, ForgotPassword pages
-- **`/pages/booking`** - Flight, Hotel, Cab booking pages
-- **`/pages/dashboard`** - User dashboard, booking history, profile
-- **`/pages/travel`** - Travel search, results, details pages
+#### `backend/app/database.py`
+- **Purpose**: SQLAlchemy database configuration
+- **Key Features**:
+  - Database engine setup (SQLite by default)
+  - Session management
+  - Base class for models
 
-#### Services Layer
-- **API clients** for backend communication
-- **Third-party integrations** (payment, maps, etc.)
-- **Authentication service** for JWT handling
+#### `backend/app/models.py`
+- **Purpose**: Database models and Pydantic schemas
+- **Models**:
+  - `User`: User authentication and profile data
+  - `Flight`: Flight information and availability
+  - `Hotel`: Hotel information and booking data
+  - `Transport`: Transportation options
+  - `Booking`: Booking records and status
+- **Schemas**: Pydantic models for API request/response validation
 
-### Backend Structure (`/backend`)
+#### `backend/app/auth.py`
+- **Purpose**: JWT authentication endpoints
+- **Endpoints**:
+  - `POST /api/auth/register`: User registration
+  - `POST /api/auth/login`: User login
+- **Features**: Password hashing with bcrypt, JWT token generation
 
-#### Controllers Layer
-- Handle HTTP requests and responses
-- Input validation and sanitization
-- Call appropriate services
-- Format API responses
+### API Routes
 
-#### Models Layer
-- **User.model.ts** - User schema with authentication fields
-- **Booking.model.ts** - Unified booking schema for flights, hotels, cabs
-- **Flight.model.ts** - Flight-specific data schema
-- **Hotel.model.ts** - Hotel information schema
-- **Conversation.model.ts** - AI chat history schema
+#### `backend/app/routes/flights.py`
+- **Purpose**: Flight search and booking endpoints
+- **Endpoints**:
+  - `GET /api/flights/search`: Search flights with filters
+  - `GET /api/flights/{flight_id}`: Get specific flight details
+- **Features**: Dummy data implementation, ready for Amadeus API integration
 
-#### Services Layer
-- **Business logic implementation**
-- **Third-party API integrations**
-- **Database operations**
-- **AI processing with Gemini**
+#### `backend/app/routes/hotels.py`
+- **Purpose**: Hotel search and booking endpoints
+- **Endpoints**:
+  - `GET /api/hotels/search`: Search hotels with filters
+  - `GET /api/hotels/{hotel_id}`: Get specific hotel details
+- **Features**: Dummy data implementation, ready for Booking.com API integration
 
-#### Middleware
-- **Authentication** - JWT verification
-- **Validation** - Request data validation
-- **Error handling** - Centralized error processing
-- **Rate limiting** - API usage control
+#### `backend/app/routes/transport.py`
+- **Purpose**: Transport search endpoints
+- **Endpoints**:
+  - `GET /api/transport/search`: Search transport options
+  - `GET /api/transport/{transport_id}`: Get specific transport details
+- **Features**: Dummy data implementation, ready for Uber API integration
 
-### Configuration Files
+#### `backend/app/routes/bookings.py`
+- **Purpose**: Booking management endpoints
+- **Endpoints**:
+  - `GET /api/bookings/`: List user bookings
+  - `POST /api/bookings/`: Create new booking
+  - `GET /api/bookings/{booking_id}`: Get specific booking
+  - `DELETE /api/bookings/{booking_id}`: Cancel booking
+- **Features**: In-memory storage, can be extended to database
 
-#### Frontend Configuration
-- **`tailwind.config.js`** - Tailwind CSS customization
-- **`tsconfig.json`** - TypeScript compiler options
-- **`.env`** - Environment variables (API URLs, keys)
+#### `backend/app/routes/users.py`
+- **Purpose**: User profile and preferences
+- **Endpoints**:
+  - `GET /api/users/profile`: Get user profile
+  - `GET /api/users/preferences`: Get user preferences
+  - `PUT /api/users/preferences`: Update user preferences
+- **Features**: User preference management
 
-#### Backend Configuration
-- **`tsconfig.json`** - TypeScript configuration
-- **`jest.config.js`** - Testing framework setup
-- **`.env`** - Server configuration and API keys
+#### `backend/app/routes/payments.py`
+- **Purpose**: Razorpay payment integration
+- **Endpoints**:
+  - `POST /api/payments/create-order`: Create Razorpay payment order
+- **Features**: Payment gateway integration, order creation
 
-## File Naming Conventions
+## Frontend Structure (HTML/CSS/JavaScript)
 
-### TypeScript Files
-- **Components:** PascalCase (e.g., `FlightSearch.tsx`)
-- **Services:** camelCase with .service suffix (e.g., `flight.service.ts`)
-- **Controllers:** camelCase with .controller suffix (e.g., `booking.controller.ts`)
-- **Models:** PascalCase with .model suffix (e.g., `User.model.ts`)
-- **Types:** camelCase with .types suffix (e.g., `booking.types.ts`)
+### Core Files
 
-### Directory Conventions
-- All directories use **kebab-case** or **camelCase**
-- Component directories match component names
-- Service directories group related functionality
+#### `frontend/index.html`
+- **Purpose**: Main application page
+- **Features**:
+  - Responsive HTML5 structure
+  - Navigation and hero section
+  - Search forms (flights, hotels, transport)
+  - AI chat widget
+  - Modal templates for login/signup
+  - Links to all CSS and JS files
 
-## Module Organization Patterns
+### Stylesheets
 
-### Import Structure
-```typescript
-// External library imports
-import React from 'react';
-import { Express } from 'express';
+#### `frontend/css/main.css`
+- **Purpose**: Main stylesheet with modern CSS
+- **Features**:
+  - CSS variables for colors, typography, spacing
+  - Modern styling with shadows and transitions
+  - Component styles for buttons, forms, layout
+  - Responsive design foundations
 
-// Internal imports (absolute paths)
-import { UserService } from '@/services/user.service';
-import { BookingTypes } from '@/types/booking.types';
+#### `frontend/css/responsive.css`
+- **Purpose**: Responsive design styles
+- **Features**:
+  - Mobile-first approach
+  - Breakpoints for mobile, tablet, desktop
+  - Adaptive layouts and components
 
-// Relative imports (for closely related files)
-import './Component.styles.css';
-```
+#### `frontend/css/reset.css`
+- **Purpose**: CSS reset for cross-browser consistency
+- **Features**: Normalizes default browser styles
 
-### Export Patterns
-```typescript
-// Named exports for utilities and services
-export { FlightService } from './flight.service';
+#### `frontend/css/components.css`
+- **Purpose**: Component-specific styles
+- **Features**: Modular CSS for reusable components
 
-// Default exports for components and main modules
-export default FlightSearch;
-```
+### JavaScript Modules
 
-## Environment Configuration
+#### `frontend/js/main.js`
+- **Purpose**: Main application logic and initialization
+- **Features**:
+  - Application startup and configuration
+  - Navigation and modal handling
+  - Search tab switching
+  - Event listeners and coordination
+  - Dummy handlers for development
 
-### Development Environment
-- Frontend runs on `http://localhost:3000`
-- Backend API runs on `http://localhost:5000`
-- MongoDB on `mongodb://localhost:27017`
-- Redis on `redis://localhost:6379`
+#### `frontend/js/api.js`
+- **Purpose**: API service layer for backend communication
+- **Features**:
+  - HTTP client for all API calls
+  - Authentication methods
+  - Search and booking operations
+  - Error handling and response processing
+  - Mock data for development
 
-### Production Environment
-- Environment variables for all service URLs
-- Secure API key management
-- Database connection pooling
-- CDN configuration for static assets
+#### `frontend/js/chat.js`
+- **Purpose**: AI chatbot functionality and UI
+- **Features**:
+  - Chat interface management
+  - Message sending and receiving
+  - Typing indicators
+  - Conversation history
+  - Quick suggestions and responses
 
-## Build and Deployment Structure
+#### `frontend/js/auth.js`
+- **Purpose**: Authentication handling
+- **Features**: Login/logout functionality, token management
 
-### Development Build
-- **Frontend:** Create React App development server
-- **Backend:** ts-node with nodemon for hot reload
-- **Database:** Local MongoDB and Redis instances
+#### `frontend/js/search.js`
+- **Purpose**: Search functionality
+- **Features**: Search form handling, results display
 
-### Production Build
-- **Frontend:** Optimized React build with code splitting
-- **Backend:** Compiled TypeScript to JavaScript
-- **Containerization:** Docker containers for each service
-- **Orchestration:** Docker Compose for local, Kubernetes for production
+#### `frontend/js/ui.js`
+- **Purpose**: UI interactions and animations
+- **Features**: UI state management, animations, transitions
 
-## Testing Structure
+#### `frontend/js/utils.js`
+- **Purpose**: Utility functions and helpers
+- **Features**: Common utility functions, data formatting
 
-### Frontend Tests
-- **Unit tests:** Component testing with Jest and React Testing Library
-- **Integration tests:** API integration testing
-- **E2E tests:** End-to-end user flow testing
+#### `frontend/js/config.js`
+- **Purpose**: Configuration settings
+- **Features**: API endpoints, environment variables
 
-### Backend Tests
-- **Unit tests:** Service and utility function tests
-- **Integration tests:** API endpoint testing
-- **Database tests:** Model and query testing
+## Documentation Structure
 
-This structure provides a scalable foundation for the AI Travel Agent application, ensuring clear separation of concerns, maintainable code organization, and efficient development workflows.
+### `Docs/project_structure.md`
+- **Purpose**: This file - detailed project structure documentation
+- **Content**: Complete file structure, purpose of each component
+
+### `Docs/Bug_tracking.md`
+- **Purpose**: Bug tracking and issue management
+- **Content**: Known issues, bug reports, resolution tracking
+
+### `Docs/UI_UX.md`
+- **Purpose**: UI/UX design guidelines and wireframes
+- **Content**: Design principles, user experience guidelines
+
+### `Docs/implementation.md`
+- **Purpose**: Implementation details and technical specifications
+- **Content**: Technical implementation, architecture decisions
+
+## Configuration Files
+
+### `requirements.txt`
+- **Purpose**: Python dependencies
+- **Key Dependencies**:
+  - `fastapi`: Web framework
+  - `uvicorn`: ASGI server
+  - `sqlalchemy`: ORM
+  - `passlib[bcrypt]`: Password hashing
+  - `python-jose`: JWT handling
+  - `python-dotenv`: Environment variables
+  - `razorpay`: Payment gateway
+  - `google-generativeai`: Gemini AI integration
+
+### `.env` (backend/.env)
+- **Purpose**: Environment variables
+- **Key Variables**:
+  - `GEMINI_API_KEY`: Google Gemini API key
+  - `SECRET_KEY`: JWT secret key
+  - `DATABASE_URL`: Database connection string
+  - `RAZORPAY_KEY_ID`: Razorpay public key
+  - `RAZORPAY_KEY_SECRET`: Razorpay secret key
+
+## Key Features
+
+### AI Integration
+- **Google Gemini AI**: Powered by `gemini-1.5-pro` model
+- **Context Engineering**: Personalized conversations and memory
+- **Multi-turn Conversations**: Context-aware responses
+
+### Authentication
+- **JWT Tokens**: Secure authentication
+- **bcrypt Hashing**: Password security
+- **Session Management**: User state tracking
+
+### Payment Integration
+- **Razorpay**: Payment gateway integration
+- **Order Creation**: Payment order management
+- **Secure Transactions**: Encrypted payment processing
+
+### Database
+- **SQLAlchemy ORM**: Database abstraction
+- **SQLite**: Lightweight database (default)
+- **Extensible**: Can switch to PostgreSQL/MySQL
+
+### API Design
+- **RESTful Endpoints**: Standard HTTP methods
+- **Pydantic Validation**: Request/response validation
+- **Error Handling**: Comprehensive error responses
+- **CORS Support**: Cross-origin resource sharing
+
+## Development Workflow
+
+### Backend Development
+1. **Setup**: Create virtual environment, install dependencies
+2. **Configuration**: Set up `.env` file with API keys
+3. **Development**: Run with `uvicorn app.main:app --reload`
+4. **Testing**: Access API docs at `/docs`
+
+### Frontend Development
+1. **Static Files**: HTML/CSS/JS served by FastAPI
+2. **Development**: No build process required
+3. **Testing**: Direct browser access
+4. **Deployment**: Same server as backend
+
+### Context Engineering
+1. **Documentation**: Maintain context files in `Docs/`
+2. **Updates**: Regular updates to match project evolution
+3. **AI Integration**: Context passed to Gemini for personalized responses
+
+## Deployment Considerations
+
+### Production Setup
+- **Database**: Switch to PostgreSQL/MySQL
+- **Environment**: Production environment variables
+- **Security**: HTTPS, proper CORS settings
+- **Monitoring**: Logging and error tracking
+
+### Scalability
+- **API Rate Limiting**: Implement rate limiting
+- **Caching**: Redis for session and data caching
+- **Load Balancing**: Multiple server instances
+- **CDN**: Static file delivery optimization
+
+This structure provides a solid foundation for an AI-powered travel agent with modern web technologies, comprehensive documentation, and scalable architecture.

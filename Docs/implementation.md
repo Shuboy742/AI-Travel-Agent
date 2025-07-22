@@ -47,46 +47,44 @@
 ## Recommended Tech Stack
 
 ### Frontend:
-- **Framework:** React.js with TypeScript - Modern, component-based UI with type safety
-- **Documentation:** https://react.dev/
-- **Styling:** Tailwind CSS - Utility-first CSS framework
-- **Documentation:** https://tailwindcss.com/docs
-- **State Management:** Redux Toolkit - Predictable state container
-- **Documentation:** https://redux-toolkit.js.org/
+- **Framework:** Vanilla HTML5, CSS3, JavaScript (ES6+) - No frameworks as requested
+- **Styling:** Custom CSS with modern features (CSS Grid, Flexbox, CSS Variables)
+- **Responsive Design:** Mobile-first approach with breakpoints
+- **Documentation:** https://developer.mozilla.org/en-US/docs/Web/HTML
 
 ### Backend:
-- **Framework:** Node.js with Express.js - Fast, unopinionated web framework
-- **Documentation:** https://expressjs.com/
-- **Runtime:** Node.js 18+ - JavaScript runtime environment
-- **Documentation:** https://nodejs.org/en/docs/
-- **Language:** TypeScript - Type-safe JavaScript superset
-- **Documentation:** https://www.typescriptlang.org/docs/
+- **Framework:** Python FastAPI - Modern, fast web framework for building APIs
+- **Documentation:** https://fastapi.tiangolo.com/
+- **Runtime:** Python 3.9+ - Python runtime environment
+- **Language:** Python - Clean, readable programming language
+- **Documentation:** https://docs.python.org/3/
 
 ### Database:
-- **Primary Database:** MongoDB - Flexible document database for travel data
-- **Documentation:** https://www.mongodb.com/docs/
-- **Cache:** Redis - In-memory data store for session management
-- **Documentation:** https://redis.io/docs/
+- **Primary Database:** SQLite (default) - Lightweight database for development
+- **ORM:** SQLAlchemy - Python SQL toolkit and Object-Relational Mapping
+- **Documentation:** https://docs.sqlalchemy.org/
+- **Alternative:** PostgreSQL/MySQL for production deployment
 
 ### AI Integration:
 - **AI Model:** Google Gemini API - Conversational AI for travel assistance
 - **Documentation:** https://ai.google.dev/gemini-api/docs
-- **SDK:** @google/generative-ai - Official Google AI SDK for Node.js
+- **SDK:** google-generativeai - Official Google AI SDK for Python
 - **Documentation:** https://ai.google.dev/gemini-api/docs/quickstart
+- **Model:** gemini-1.5-pro - Latest Gemini model for advanced conversations
 
 ### Additional Tools:
-- **Authentication:** JWT (jsonwebtoken) - Secure authentication tokens
-- **Documentation:** https://github.com/auth0/node-jsonwebtoken
-- **Payment Gateway:** Stripe API - Secure payment processing
-- **Documentation:** https://stripe.com/docs/api
-- **API Testing:** Postman - API development and testing
-- **Documentation:** https://learning.postman.com/docs/
-- **Email Service:** Nodemailer - Email sending capability
-- **Documentation:** https://nodemailer.com/about/
-- **File Upload:** Multer - File upload middleware
-- **Documentation:** https://github.com/expressjs/multer
-- **Environment Variables:** dotenv - Environment configuration
-- **Documentation:** https://github.com/motdotla/dotenv
+- **Authentication:** JWT (python-jose) - Secure authentication tokens
+- **Documentation:** https://python-jose.readthedocs.io/
+- **Password Hashing:** bcrypt - Secure password hashing
+- **Documentation:** https://passlib.readthedocs.io/en/stable/
+- **Payment Gateway:** Razorpay - Secure payment processing (replaced Stripe)
+- **Documentation:** https://razorpay.com/docs/
+- **API Testing:** FastAPI automatic docs - Built-in API documentation
+- **Documentation:** https://fastapi.tiangolo.com/tutorial/first-steps/
+- **Environment Variables:** python-dotenv - Environment configuration
+- **Documentation:** https://github.com/theskumar/python-dotenv
+- **HTTP Client:** httpx - Modern HTTP client for API calls
+- **Documentation:** https://www.python-httpx.org/
 
 ## Implementation Stages
 
@@ -95,10 +93,13 @@
 **Dependencies:** None
 
 #### Sub-steps:
-- [ ] Set up Node.js development environment and project structure
-- [ ] Initialize React.js frontend with TypeScript and Tailwind CSS
-- [ ] Configure MongoDB database connection and basic schema
-- [ ] Set up Express.js server with middleware and routing structure
+- [x] Set up Python development environment and project structure
+- [x] Initialize FastAPI backend with SQLAlchemy and JWT authentication
+- [x] Create HTML/CSS/JS frontend with responsive design
+- [x] Configure SQLite database connection and basic schema
+- [x] Set up Google Gemini AI integration
+- [x] Implement Razorpay payment integration
+- [x] Set up FastAPI server with middleware and routing structure
 - [ ] Implement basic JWT authentication system
 - [ ] Configure environment variables and security settings
 - [ ] Set up Git repository and CI/CD pipeline basics
@@ -118,7 +119,7 @@
 - [ ] Develop basic frontend UI components and pages
 - [ ] Implement user dashboard with booking overview
 - [ ] Create booking management system (view/modify/cancel)
-- [ ] Set up payment processing with Stripe integration
+- [x] Set up payment processing with Razorpay integration
 - [ ] Implement responsive design for mobile devices
 - [ ] Create basic conversation flow for AI assistant
 
@@ -157,28 +158,28 @@
 ## Resource Links
 
 ### Primary Documentation:
-- [React.js Official Documentation](https://react.dev/)
-- [Node.js Official Documentation](https://nodejs.org/en/docs/)
-- [Express.js Guide](https://expressjs.com/)
-- [MongoDB Manual](https://www.mongodb.com/docs/)
+- [FastAPI Official Documentation](https://fastapi.tiangolo.com/)
+- [Python Official Documentation](https://docs.python.org/3/)
+- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
 - [Google Gemini API Documentation](https://ai.google.dev/gemini-api/docs)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [HTML5 Official Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS3 Official Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [JavaScript ES6+ Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ### API Integration Guides:
-- [Stripe Payment Integration](https://stripe.com/docs/api)
+- [Razorpay Payment Integration](https://razorpay.com/docs/)
 - [Amadeus Travel APIs](https://developers.amadeus.com/)
-- [Google AI SDK for JavaScript](https://ai.google.dev/gemini-api/docs/quickstart)
-- [Redis Documentation](https://redis.io/docs/)
+- [Google AI SDK for Python](https://ai.google.dev/gemini-api/docs/quickstart)
+- [SQLite Documentation](https://www.sqlite.org/docs.html)
 
 ### Best Practices & Tutorials:
 - [Travel Booking Platform Development Guide](https://onix-systems.com/blog/how-to-design-a-travel-booking-platform)
-- [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/)
-- [React Performance Optimization](https://react.dev/learn/render-and-commit)
-- [MongoDB Schema Design Patterns](https://www.mongodb.com/developer/products/mongodb/mongodb-schema-design-best-practices/)
+- [Python Security Best Practices](https://docs.python.org/3/library/security.html)
+- [FastAPI Performance Optimization](https://fastapi.tiangolo.com/tutorial/performance/)
+- [SQLAlchemy Best Practices](https://docs.sqlalchemy.org/en/20/orm/best_practices.html)
 
 ### Testing and Deployment:
-- [Jest Testing Framework](https://jestjs.io/docs/getting-started)
-- [Postman API Testing](https://learning.postman.com/docs/)
+- [Pytest Testing Framework](https://docs.pytest.org/)
+- [FastAPI Testing](https://fastapi.tiangolo.com/tutorial/testing/)
 - [Docker Documentation](https://docs.docker.com/)
 - [AWS Deployment Guide](https://docs.aws.amazon.com/)

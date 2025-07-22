@@ -67,26 +67,54 @@ These files are essential for context engineering because they provide structure
 AI_Agent_travel_booking/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py
-│   │   ├── database.py
-│   │   ├── models.py
-│   │   ├── auth.py
-│   │   └── routes/
-│   │       ├── flights.py
-│   │       ├── hotels.py
-│   │       ├── transport.py
-│   │       ├── bookings.py
-│   │       ├── users.py
-│   │       └── payments.py
-│   ├── .env
-│   └── ...
+│   │   ├── main.py              # FastAPI application entry point
+│   │   ├── database.py          # SQLAlchemy database configuration
+│   │   ├── models.py            # Database models and Pydantic schemas
+│   │   ├── auth.py              # JWT authentication endpoints
+│   │   ├── routes/              # API route modules
+│   │   │   ├── flights.py       # Flight search and booking endpoints
+│   │   │   ├── hotels.py        # Hotel search and booking endpoints
+│   │   │   ├── transport.py     # Transport search endpoints
+│   │   │   ├── bookings.py      # Booking management endpoints
+│   │   │   ├── users.py         # User profile and preferences
+│   │   │   └── payments.py      # Razorpay payment integration
+│   │   └── services/            # Business logic services
+│   ├── travel_agent.db          # SQLite database file
+│   ├── package.json             # Node.js dependencies (legacy)
+│   └── venv/                    # Python virtual environment
 ├── frontend/
-│   ├── index.html
+│   ├── index.html               # Main application page
 │   ├── css/
+│   │   ├── main.css             # Main stylesheet
+│   │   ├── reset.css            # CSS reset
+│   │   ├── responsive.css       # Responsive design styles
+│   │   └── components.css       # Component-specific styles
 │   ├── js/
-│   ├── images/
-│   └── assets/
-└── Readme.md
+│   │   ├── main.js              # Main application logic
+│   │   ├── api.js               # API service layer
+│   │   ├── chat.js              # AI chatbot functionality
+│   │   ├── auth.js              # Authentication handling
+│   │   ├── search.js            # Search functionality
+│   │   ├── ui.js                # UI interactions
+│   │   ├── utils.js             # Utility functions
+│   │   └── config.js            # Configuration settings
+│   ├── images/                  # Image assets
+│   └── assets/                  # Other static assets
+├── Docs/                        # Project documentation
+│   ├── project_structure.md     # Detailed project structure
+│   ├── Bug_tracking.md          # Bug tracking and issues
+│   ├── UI_UX.md                 # UI/UX design guidelines
+│   └── implementation.md        # Implementation details
+├── shared/                      # Shared resources
+│   ├── constants/               # Shared constants
+│   └── types/                   # Shared type definitions
+├── app/                         # Additional app directory (legacy)
+├── venv/                        # Root virtual environment
+├── .venv/                       # Alternative virtual environment
+├── PRD.md                       # Product Requirements Document
+├── requirements.txt             # Python dependencies
+├── .gitignore                   # Git ignore rules
+└── Readme.md                    # Project documentation
 ```
 
 ---

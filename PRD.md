@@ -25,19 +25,19 @@ An intelligent, conversational AI-powered travel assistant that books flights, h
 - **No Frameworks:** Pure HTML, CSS, JS as requested
 
 ### 2.2 Backend Technology Stack
-- **Node.js:** Server-side JavaScript runtime
-- **Express.js:** Web application framework
+- **Python 3.9+:** Server-side Python runtime
+- **FastAPI:** Modern, fast web framework for building APIs
 - **Google Gemini AI:** Primary AI model for conversational interface
-- **MongoDB:** NoSQL database for flexible data storage
-- **Redis:** Caching and session management
-- **JWT:** Authentication and authorization
+- **SQLAlchemy:** SQL toolkit and Object-Relational Mapping
+- **SQLite:** Lightweight database (default, can use PostgreSQL/MySQL)
+- **JWT:** Authentication and authorization with python-jose
 
 ### 2.3 External API Integrations
 - **Google Gemini API:** AI conversation and travel assistance
 - **Amadeus API:** Flight booking and search
 - **Booking.com API:** Hotel reservations
 - **Uber API:** Transportation booking
-- **Stripe API:** Payment processing
+- **Razorpay API:** Payment processing (replaced Stripe)
 
 ## 3. Functional Requirements
 
@@ -102,7 +102,7 @@ An intelligent, conversational AI-powered travel assistant that books flights, h
 
 ### 4.3 Scalability
 - **Horizontal Scaling:** Support for multiple server instances
-- **Database Scaling:** MongoDB sharding and replication
+- **Database Scaling:** PostgreSQL/MySQL clustering and replication
 - **Caching Strategy:** Redis-based caching for improved performance
 - **CDN Integration:** Content delivery network for static assets
 
@@ -179,7 +179,7 @@ An intelligent, conversational AI-powered travel assistant that books flights, h
 - **Amadeus API:** Flight search and booking
 - **Booking.com API:** Hotel reservations
 - **Uber API:** Transportation services
-- **Stripe API:** Payment processing
+- **Razorpay API:** Payment processing
 - **Email Service:** Transactional email delivery
 
 ### 8.2 Data Synchronization
@@ -273,8 +273,8 @@ An intelligent, conversational AI-powered travel assistant that books flights, h
 ### 13.1 Phase 1: Foundation (Weeks 1-4)
 - [ ] Project setup and environment configuration
 - [ ] Basic HTML/CSS/JS frontend structure
-- [ ] Node.js/Express backend setup
-- [ ] MongoDB database configuration
+- [x] Python/FastAPI backend setup
+- [x] SQLite database configuration
 - [ ] User authentication system
 
 ### 13.2 Phase 2: Core Features (Weeks 5-12)
@@ -302,7 +302,7 @@ An intelligent, conversational AI-powered travel assistant that books flights, h
 
 ### 14.1 Development Team
 - **Frontend Developer:** HTML/CSS/JS specialist
-- **Backend Developer:** Node.js/Express/AI integration specialist
+- **Backend Developer:** Python/FastAPI/AI integration specialist
 - **AI/ML Engineer:** Gemini AI optimization specialist
 - **DevOps Engineer:** Deployment and infrastructure specialist
 - **QA Engineer:** Testing and quality assurance specialist
@@ -321,6 +321,6 @@ An intelligent, conversational AI-powered travel assistant that books flights, h
 
 ## 15. Conclusion
 
-This PRD outlines the comprehensive requirements for building an AI-powered travel agent platform using HTML/CSS/JS frontend and Node.js backend with Google Gemini AI integration. The project aims to revolutionize travel booking through intelligent conversational AI while maintaining high performance, security, and user experience standards.
+This PRD outlines the comprehensive requirements for building an AI-powered travel agent platform using HTML/CSS/JS frontend and Python FastAPI backend with Google Gemini AI integration. The project aims to revolutionize travel booking through intelligent conversational AI while maintaining high performance, security, and user experience standards.
 
 The success of this project depends on careful implementation of the AI integration, robust API management, and creating an intuitive user interface that makes travel planning effortless and enjoyable.

@@ -35,15 +35,15 @@ When encountering complex tasks, create a todo list with:
 #### 3. Documentation Research
 - Check `/Docs/Implementation.md` for relevant documentation links in the subtask
 - Read and understand official documentation before implementing
-- Reference Gemini API docs, Stripe docs, travel API documentation as needed
+- Reference Gemini API docs, Razorpay docs, travel API documentation as needed
 - Understand authentication flows and data models
 
 #### 4. UI/UX Implementation
-- **MANDATORY:** Consult `/Docs/UI_UX_doc.md` before implementing any UI/UX elements
+- **MANDATORY:** Consult `/Docs/UI_UX.md` before implementing any UI/UX elements
 - Follow design system specifications and color palette
 - Implement responsive design requirements for mobile/tablet/desktop
 - Ensure accessibility standards (WCAG 2.1 AA) compliance
-- Use Tailwind CSS classes according to the design system
+- Use custom CSS classes according to the design system
 
 #### 5. Project Structure Compliance
 - **CRITICAL:** Check `/Docs/project_structure.md` before:
@@ -52,7 +52,7 @@ When encountering complex tasks, create a todo list with:
   - Making structural changes to the project
   - Adding new dependencies
   - Modifying build configurations
-- Follow TypeScript conventions and file naming patterns
+- Follow Python conventions and file naming patterns
 - Respect the separation between frontend and backend concerns
 
 #### 6. Error Handling and Bug Tracking
@@ -66,11 +66,12 @@ When encountering complex tasks, create a todo list with:
 
 #### 7. AI Integration Specifics
 When working on Gemini AI integration:
-- Follow Google AI SDK documentation patterns
+- Follow Google AI Python SDK documentation patterns
 - Implement proper error handling for API calls
 - Ensure conversation context is maintained
 - Test AI responses for travel-specific scenarios
 - Handle rate limiting and API quotas appropriately
+- Use `google-generativeai` Python package
 
 #### 8. Travel API Integration Guidelines
 For flight, hotel, and cab booking APIs:
@@ -84,10 +85,10 @@ For flight, hotel, and cab booking APIs:
 Mark tasks complete only when ALL criteria are met:
 - All functionality implemented correctly
 - Code follows project structure guidelines from project_structure.md
-- UI/UX matches specifications from UI_UX_doc.md (if applicable)
+- UI/UX matches specifications from UI_UX.md (if applicable)
 - No errors or warnings remain in the console
 - All todo list items completed (if applicable)
-- Proper TypeScript types are defined
+- Proper Python type hints are defined
 - Tests are written and passing (when applicable)
 - Documentation is updated if needed
 
@@ -107,15 +108,15 @@ Mark tasks complete only when ALL criteria are met:
 
 ### Payment Processing
 - Follow PCI DSS compliance guidelines
-- Implement Stripe integration securely
+- Implement Razorpay integration securely
 - Handle payment errors gracefully
 - Provide clear transaction confirmations
 
 ### Data Management
-- Design MongoDB schemas for travel data efficiently
+- Design SQLAlchemy models for travel data efficiently
 - Implement proper indexing for search performance
 - Handle booking state management consistently
-- Cache frequently accessed data with Redis
+- Cache frequently accessed data with SQLite/PostgreSQL
 
 ### API Integration Best Practices
 - Implement circuit breaker patterns for external API calls
@@ -125,21 +126,21 @@ Mark tasks complete only when ALL criteria are met:
 
 ## Technology-Specific Rules
 
-### React/TypeScript Frontend
-- Use functional components with hooks
-- Implement proper TypeScript interfaces
-- Follow React best practices for state management
-- Use Redux Toolkit for complex state management
+### HTML/CSS/JavaScript Frontend
+- Use modern JavaScript ES6+ features
+- Implement proper vanilla JS patterns
+- Follow responsive design best practices
+- Use CSS Grid and Flexbox for layouts
 
-### Node.js/Express Backend
+### Python/FastAPI Backend
 - Follow RESTful API design principles
 - Implement proper middleware chain
-- Use TypeScript for type safety
-- Follow the controller-service-model pattern
+- Use Python type hints for type safety
+- Follow the router-service-model pattern
 
 ### Database Operations
-- Use proper MongoDB connection patterns
-- Implement data validation at the schema level
+- Use proper SQLAlchemy connection patterns
+- Implement data validation at the model level
 - Handle database errors gracefully
 - Optimize queries for performance
 
@@ -168,7 +169,7 @@ Mark tasks complete only when ALL criteria are met:
 
 Before marking any task complete, verify:
 - [ ] Code compiles without errors or warnings
-- [ ] TypeScript types are properly defined
+- [ ] Python type hints are properly defined
 - [ ] UI components match design specifications
 - [ ] API calls handle errors appropriately
 - [ ] User input validation is implemented

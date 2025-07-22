@@ -34,15 +34,18 @@
 ### Core Components
 
 #### Button Component
-```typescript
-interface ButtonProps {
-  variant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
-  size: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
-  loading?: boolean;
-  icon?: ReactElement;
-  fullWidth?: boolean;
-}
+```css
+/* Button variants */
+.btn-primary { /* Blue background, white text - Main actions */ }
+.btn-secondary { /* Gray background, dark text - Secondary actions */ }
+.btn-outline { /* Transparent background, colored border - Alternative actions */ }
+.btn-ghost { /* Transparent background, colored text - Subtle actions */ }
+.btn-danger { /* Red background, white text - Destructive actions */ }
+
+/* Button sizes */
+.btn-sm { /* Small button */ }
+.btn-md { /* Medium button */ }
+.btn-lg { /* Large button */ }
 ```
 
 **Variants:**
@@ -53,24 +56,39 @@ interface ButtonProps {
 - **Danger:** Red background, white text - Destructive actions
 
 #### Input Component
-```typescript
-interface InputProps {
-  type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'search';
-  size: 'sm' | 'md' | 'lg';
-  error?: string;
-  helperText?: string;
-  icon?: ReactElement;
-  disabled?: boolean;
-}
+```css
+/* Input types */
+.input-text { /* Text input */ }
+.input-email { /* Email input */ }
+.input-password { /* Password input */ }
+.input-number { /* Number input */ }
+.input-tel { /* Telephone input */ }
+.input-search { /* Search input */ }
+
+/* Input sizes */
+.input-sm { /* Small input */ }
+.input-md { /* Medium input */ }
+.input-lg { /* Large input */ }
+
+/* Input states */
+.input-error { /* Error state styling */ }
+.input-disabled { /* Disabled state styling */ }
 ```
 
 #### Card Component
-```typescript
-interface CardProps {
-  variant: 'default' | 'elevated' | 'outlined';
-  padding: 'sm' | 'md' | 'lg';
-  interactive?: boolean; // Hover effects
-}
+```css
+/* Card variants */
+.card-default { /* Default card styling */ }
+.card-elevated { /* Elevated card with shadow */ }
+.card-outlined { /* Card with border outline */ }
+
+/* Card padding */
+.card-padding-sm { /* Small padding */ }
+.card-padding-md { /* Medium padding */ }
+.card-padding-lg { /* Large padding */ }
+
+/* Interactive cards */
+.card-interactive { /* Hover effects and interactions */ }
 ```
 
 ### Travel-Specific Components
