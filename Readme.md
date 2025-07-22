@@ -166,5 +166,11 @@ MIT
 
 <img width="1298" height="699" alt="ai9" src="https://github.com/user-attachments/assets/785ca270-4e15-436d-876b-6ffad620e35b" /> 
 
+<img width="1291" height="699" alt="ai11" src="https://github.com/user-attachments/assets/b2efa0ca-3882-4d1f-9f91-a184ce6b7da3" />
+
+<img width="1291" height="701" alt="ai12" src="https://github.com/user-attachments/assets/c284e8b9-2fd9-470f-af2d-60b63c25728c" />
+
+
+
 ---
 **Designed by Shubham Kambale**
