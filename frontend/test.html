@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Travel Agent - Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #1d4ed8;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #2563eb;
+        }
+        .error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        .success {
+            border-left-color: #22c55e;
+            background: #f0fdf4;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Travel Agent - Test Page</h1>
+    <p>This page tests the API endpoints directly to verify they're working correctly.</p>
+
+    <div class="test-section">
+        <h2>Flight Search Test</h2>
+        <button class="test-button" onclick="testFlightSearch()">Test Flight Search</button>
+        <div id="flightResults" class="results" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Hotel Search Test</h2>
+        <button class="test-button" onclick="testHotelSearch()">Test Hotel Search</button>
+        <div id="hotelResults" class="results" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Transport Search Test</h2>
+        <button class="test-button" onclick="testTransportSearch()">Test Transport Search</button>
+        <div id="transportResults" class="results" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Main Application Test</h2>
+        <a href="/" class="test-button" style="text-decoration: none; display: inline-block;">Go to Main Application</a>
+    </div>
+
+    <script>
+        async function testFlightSearch() {
+            const resultsDiv = document.getElementById('flightResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.className = 'results';
+            resultsDiv.innerHTML = 'Testing flight search...';
+            
+            try {
+                const response = await fetch('/api/flights/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        from: 'DEL',
+                        to: 'BOM',
+                        departDate: '2025-01-15',
+                        returnDate: '2025-01-20',
+                        passengers: '1'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                resultsDiv.className = 'results success';
+                resultsDiv.innerHTML = `
+                    <h3>✅ Flight Search Successful!</h3>
+                    <p>Found ${data.length} flights</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultsDiv.className = 'results error';
+                resultsDiv.innerHTML = `
+                    <h3>❌ Flight Search Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+
+        async function testHotelSearch() {
+            const resultsDiv = document.getElementById('hotelResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.className = 'results';
+            resultsDiv.innerHTML = 'Testing hotel search...';
+            
+            try {
+                const response = await fetch('/api/hotels/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        location: 'Mumbai',
+                        checkIn: '2025-01-15',
+                        checkOut: '2025-01-20',
+                        guests: '2',
+                        rooms: '1'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                resultsDiv.className = 'results success';
+                resultsDiv.innerHTML = `
+                    <h3>✅ Hotel Search Successful!</h3>
+                    <p>Found ${data.length} hotels</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultsDiv.className = 'results error';
+                resultsDiv.innerHTML = `
+                    <h3>❌ Hotel Search Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+
+        async function testTransportSearch() {
+            const resultsDiv = document.getElementById('transportResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.className = 'results';
+            resultsDiv.innerHTML = 'Testing transport search...';
+            
+            try {
+                const response = await fetch('/api/transport/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pickup: 'Airport',
+                        dropoff: 'Hotel',
+                        date: '2025-01-15',
+                        time: '10:00',
+                        type: 'car'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                resultsDiv.className = 'results success';
+                resultsDiv.innerHTML = `
+                    <h3>✅ Transport Search Successful!</h3>
+                    <p>Found ${data.length} transport options</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultsDiv.className = 'results error';
+                resultsDiv.innerHTML = `
+                    <h3>❌ Transport Search Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

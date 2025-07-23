@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { margin: 10px 0; padding: 10px; background: #f0f0f0; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Minimal Form Test</h1>
+    
+    <form id="testForm">
+        <input type="text" name="from" placeholder="From" value="DEL"><br>
+        <input type="text" name="to" placeholder="To" value="BOM"><br>
+        <input type="date" name="departDate" value="2025-01-15"><br>
+        <button type="submit">Submit Form</button>
+    </form>
+    
+    <div id="result" class="result"></div>
+
+    <script>
+        console.log('🚀 Minimal test page loaded');
+        
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('📝 Form submitted');
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Processing...';
+            
+            const formData = new FormData(this);
+            console.log('📊 FormData entries:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`  ${key}: ${value}`);
+            }
+            
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            console.log('📦 Data object:', data);
+            
+            try {
+                console.log('🌐 Making API call...');
+                const response = await fetch('/api/flights/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('📡 Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const results = await response.json();
+                console.log('✈️ Results:', results);
+                
+                resultDiv.innerHTML = `<div class="success">✅ Success! Found ${results.length} flights</div>`;
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        });
+        
+        console.log('✅ Event listener attached');
+    </script>
+</body>
+</html> 

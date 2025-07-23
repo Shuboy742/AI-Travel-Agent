@@ -588,7 +588,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.chatService = new ChatService();
 });
 
-// Export for global use
 window.handleQuickAction = (action) => {
     if (window.chatService) {
         window.chatService.handleQuickAction(action);

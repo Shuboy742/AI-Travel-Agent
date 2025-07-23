@@ -1,6 +1,7 @@
 // API functions for frontend-backend communication
 
-export async function searchFlights(data) {
+// Make functions globally available
+window.searchFlights = async function(data) {
     const response = await fetch('/api/flights/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -8,9 +9,9 @@ export async function searchFlights(data) {
     });
     if (!response.ok) throw new Error('Flight search failed');
     return await response.json();
-}
+};
 
-export async function searchHotels(data) {
+window.searchHotels = async function(data) {
     const response = await fetch('/api/hotels/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -18,9 +19,9 @@ export async function searchHotels(data) {
     });
     if (!response.ok) throw new Error('Hotel search failed');
     return await response.json();
-}
+};
 
-export async function searchTransport(data) {
+window.searchTransport = async function(data) {
     const response = await fetch('/api/transport/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -28,9 +29,9 @@ export async function searchTransport(data) {
     });
     if (!response.ok) throw new Error('Transport search failed');
     return await response.json();
-}
+};
 
-export async function bookFlight(flightId) {
+window.bookFlight = async function(flightId) {
     const response = await fetch('/api/bookings/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -38,9 +39,9 @@ export async function bookFlight(flightId) {
     });
     if (!response.ok) throw new Error('Flight booking failed');
     return await response.json();
-}
+};
 
-export async function bookHotel(hotelId) {
+window.bookHotel = async function(hotelId) {
     const response = await fetch('/api/bookings/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -48,9 +49,9 @@ export async function bookHotel(hotelId) {
     });
     if (!response.ok) throw new Error('Hotel booking failed');
     return await response.json();
-}
+};
 
-export async function bookTransport(transportId) {
+window.bookTransport = async function(transportId) {
     const response = await fetch('/api/bookings/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -58,4 +59,4 @@ export async function bookTransport(transportId) {
     });
     if (!response.ok) throw new Error('Transport booking failed');
     return await response.json();
-} 
+}; 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel Test</title>
+</head>
+<body>
+  <form id="hotelForm">
+    <input name="location" value="Mumbai" required>
+    <input name="checkIn" type="date" value="2025-08-01" required>
+    <input name="checkOut" type="date" value="2025-08-05" required>
+    <input name="guests" value="2">
+    <input name="rooms" value="1">
+    <button type="submit">Search Hotels</button>
+  </form>
+  <pre id="output"></pre>
+  <script>
+    document.getElementById('hotelForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(this).entries());
+      const res = await fetch('/api/hotels/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      document.getElementById('output').textContent = await res.text();
+    };
+  </script>
+</body>
+</html> 

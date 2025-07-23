@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripped Test - AI Travel Agent</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .search-container { max-width: 800px; margin: 0 auto; }
+        .search-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 20px; border: none; background: #f0f0f0; cursor: pointer; }
+        .tab-btn.active { background: #007bff; color: white; }
+        .search-form { display: none; }
+        .search-form.active { display: block; }
+        .form-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .form-group { flex: 1; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; }
+        .result { margin: 20px 0; padding: 15px; background: #f0f0f0; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Stripped Test - AI Travel Agent</h1>
+    
+    <div class="search-container">
+        <div class="search-tabs">
+            <button class="tab-btn active" data-tab="flights">Flights</button>
+            <button class="tab-btn" data-tab="hotels">Hotels</button>
+            <button class="tab-btn" data-tab="transport">Transport</button>
+        </div>
+        
+        <!-- Flight Search Form -->
+        <form class="search-form active" id="flightSearchForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="from">From</label>
+                    <input type="text" id="from" name="from" placeholder="Departure city" required>
+                </div>
+                <div class="form-group">
+                    <label for="to">To</label>
+                    <input type="text" id="to" name="to" placeholder="Destination city" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="departDate">Departure</label>
+                    <input type="date" id="departDate" name="departDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="returnDate">Return</label>
+                    <input type="date" id="returnDate" name="returnDate">
+                </div>
+                <div class="form-group">
+                    <label for="passengers">Passengers</label>
+                    <select id="passengers" name="passengers">
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer;">
+                Search Flights
+            </button>
+        </form>
+        
+        <!-- Hotel Search Form -->
+        <form class="search-form" id="hotelSearchForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="hotelLocation">Destination</label>
+                    <input type="text" id="hotelLocation" name="location" placeholder="City, hotel, or landmark" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkIn">Check-in</label>
+                    <input type="date" id="checkIn" name="checkIn" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkOut">Check-out</label>
+                    <input type="date" id="checkOut" name="checkOut" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guests">Guests</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4+ Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rooms">Rooms</label>
+                    <select id="rooms" name="rooms">
+                        <option value="1">1 Room</option>
+                        <option value="2">2 Rooms</option>
+                        <option value="3">3 Rooms</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer;">
+                Search Hotels
+            </button>
+        </form>
+        
+        <!-- Transport Search Form -->
+        <form class="search-form" id="transportSearchForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pickup">Pickup Location</label>
+                    <input type="text" id="pickup" name="pickup" placeholder="Airport, hotel, or address" required>
+                </div>
+                <div class="form-group">
+                    <label for="dropoff">Dropoff Location</label>
+                    <input type="text" id="dropoff" name="dropoff" placeholder="Destination address" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="transportDate">Date</label>
+                    <input type="date" id="transportDate" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="transportTime">Time</label>
+                    <input type="time" id="transportTime" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="transportType">Service Type</label>
+                    <select id="transportType" name="type">
+                        <option value="taxi">Taxi</option>
+                        <option value="uber">Uber</option>
+                        <option value="limo">Limo</option>
+                        <option value="shuttle">Shuttle</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer;">
+                Book Transport
+            </button>
+        </form>
+    </div>
+    
+    <div id="result" class="result"></div>
+
+    <script>
+        console.log('🚀 Stripped test page loaded');
+        
+        // Initialize tabs
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const searchForms = document.querySelectorAll('.search-form');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                console.log('Switching to tab:', tabName);
+                
+                // Update active tab button
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update active form
+                searchForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === tabName + 'SearchForm') {
+                        form.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Initialize forms
+        const flightForm = document.getElementById('flightSearchForm');
+        const hotelForm = document.getElementById('hotelSearchForm');
+        const transportForm = document.getElementById('transportSearchForm');
+        
+        console.log('Flight form:', flightForm);
+        console.log('Hotel form:', hotelForm);
+        console.log('Transport form:', transportForm);
+        
+        if (flightForm) {
+            flightForm.addEventListener('submit', handleFlightSearch);
+            console.log('✅ Flight form listener attached');
+        }
+        
+        if (hotelForm) {
+            hotelForm.addEventListener('submit', handleHotelSearch);
+            console.log('✅ Hotel form listener attached');
+        }
+        
+        if (transportForm) {
+            transportForm.addEventListener('submit', handleTransportSearch);
+            console.log('✅ Transport form listener attached');
+        }
+        
+        async function handleFlightSearch(e) {
+            e.preventDefault();
+            console.log('✈️ Flight search submitted');
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            const searchData = {
+                from: formData.get('from') || '',
+                to: formData.get('to') || '',
+                departDate: formData.get('departDate') || '',
+                returnDate: formData.get('returnDate') || '',
+                passengers: formData.get('passengers') || '1'
+            };
+            
+            console.log('Flight search data:', searchData);
+            
+            if (!searchData.from || !searchData.to || !searchData.departDate) {
+                showResult('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            try {
+                console.log('🌐 Making flight search API call...');
+                const response = await fetch('/api/flights/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(searchData)
+                });
+                
+                console.log('📡 Flight search response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const results = await response.json();
+                console.log('✈️ Flight results:', results);
+                showResult(`✅ Found ${results.length} flights!`, 'success');
+                
+            } catch (error) {
+                console.error('❌ Flight search error:', error);
+                showResult('Error searching for flights. Please try again.', 'error');
+            }
+        }
+        
+        async function handleHotelSearch(e) {
+            e.preventDefault();
+            console.log('🏨 Hotel search submitted');
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            const searchData = {
+                location: formData.get('location') || '',
+                checkIn: formData.get('checkIn') || '',
+                checkOut: formData.get('checkOut') || '',
+                guests: formData.get('guests') || '1',
+                rooms: formData.get('rooms') || '1'
+            };
+            
+            console.log('Hotel search data:', searchData);
+            
+            if (!searchData.location || !searchData.checkIn || !searchData.checkOut) {
+                showResult('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            try {
+                console.log('🌐 Making hotel search API call...');
+                const response = await fetch('/api/hotels/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(searchData)
+                });
+                
+                console.log('📡 Hotel search response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const results = await response.json();
+                console.log('🏨 Hotel results:', results);
+                showResult(`✅ Found ${results.length} hotels!`, 'success');
+                
+            } catch (error) {
+                console.error('❌ Hotel search error:', error);
+                showResult('Error searching for hotels. Please try again.', 'error');
+            }
+        }
+        
+        async function handleTransportSearch(e) {
+            e.preventDefault();
+            console.log('🚗 Transport search submitted');
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            const searchData = {
+                pickup: formData.get('pickup') || '',
+                dropoff: formData.get('dropoff') || '',
+                date: formData.get('date') || '',
+                time: formData.get('time') || '',
+                type: formData.get('type') || 'car'
+            };
+            
+            console.log('Transport search data:', searchData);
+            
+            if (!searchData.pickup || !searchData.dropoff || !searchData.date || !searchData.time) {
+                showResult('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            try {
+                console.log('🌐 Making transport search API call...');
+                const response = await fetch('/api/transport/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(searchData)
+                });
+                
+                console.log('📡 Transport search response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const results = await response.json();
+                console.log('🚗 Transport results:', results);
+                showResult(`✅ Found ${results.length} transport options!`, 'success');
+                
+            } catch (error) {
+                console.error('❌ Transport search error:', error);
+                showResult('Error searching for transport. Please try again.', 'error');
+            }
+        }
+        
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<div class="${type}">${message}</div>`;
+        }
+        
+        console.log('✅ All event listeners attached');
+    </script>
+</body>
+</html> 

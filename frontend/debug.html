@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Travel Agent - Debug Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #1d4ed8;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #2563eb;
+        }
+        .error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        .success {
+            border-left-color: #22c55e;
+            background: #f0fdf4;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .log {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.success { background: #dcfce7; color: #166534; }
+        .status.error { background: #fef2f2; color: #dc2626; }
+        .status.info { background: #dbeafe; color: #1e40af; }
+    </style>
+</head>
+<body>
+    <h1>AI Travel Agent - Debug Page</h1>
+    <p>This page helps debug the search functionality and API endpoints.</p>
+
+    <div class="debug-section">
+        <h2>Server Status</h2>
+        <div id="serverStatus">Checking server status...</div>
+        <button class="test-button" onclick="checkServerStatus()">Check Server Status</button>
+    </div>
+
+    <div class="debug-section">
+        <h2>API Tests</h2>
+        <button class="test-button" onclick="testFlightAPI()">Test Flight API</button>
+        <button class="test-button" onclick="testHotelAPI()">Test Hotel API</button>
+        <button class="test-button" onclick="testTransportAPI()">Test Transport API</button>
+        <div id="apiResults" class="results" style="display: none;"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Main Application Test</h2>
+        <a href="/" class="test-button" style="text-decoration: none; display: inline-block;">Go to Main Application</a>
+        <p>Open browser console (F12) to see detailed logs</p>
+    </div>
+
+    <div class="debug-section">
+        <h2>Console Log</h2>
+        <div id="consoleLog" class="log"></div>
+        <button class="test-button" onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <script>
+        // Console logging function
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('consoleLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusClass = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+            logDiv.innerHTML += `<span class="status ${statusClass}">[${timestamp}]</span> ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        function clearLog() {
+            document.getElementById('consoleLog').innerHTML = '';
+        }
+
+        // Check server status
+        async function checkServerStatus() {
+            const statusDiv = document.getElementById('serverStatus');
+            statusDiv.innerHTML = 'Checking...';
+            
+            try {
+                const response = await fetch('/');
+                if (response.ok) {
+                    statusDiv.innerHTML = '<span class="status success">✅ Server is running</span>';
+                    log('Server is running and responding', 'success');
+                } else {
+                    statusDiv.innerHTML = '<span class="status error">❌ Server error</span>';
+                    log('Server returned error status: ' + response.status, 'error');
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '<span class="status error">❌ Server not reachable</span>';
+                log('Server not reachable: ' + error.message, 'error');
+            }
+        }
+
+        // Test Flight API
+        async function testFlightAPI() {
+            log('Testing Flight API...', 'info');
+            const resultsDiv = document.getElementById('apiResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.className = 'results';
+            resultsDiv.innerHTML = 'Testing flight API...';
+            
+            try {
+                const response = await fetch('/api/flights/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        from: 'DEL',
+                        to: 'BOM',
+                        departDate: '2025-01-15',
+                        returnDate: '2025-01-20',
+                        passengers: '1'
+                    })
+                });
+                
+                log(`Flight API response status: ${response.status}`, 'info');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                log(`Flight API returned ${data.length} results`, 'success');
+                
+                resultsDiv.className = 'results success';
+                resultsDiv.innerHTML = `
+                    <h3>✅ Flight API Test Successful!</h3>
+                    <p>Found ${data.length} flights</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                log('Flight API test failed: ' + error.message, 'error');
+                resultsDiv.className = 'results error';
+                resultsDiv.innerHTML = `
+                    <h3>❌ Flight API Test Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+
+        // Test Hotel API
+        async function testHotelAPI() {
+            log('Testing Hotel API...', 'info');
+            const resultsDiv = document.getElementById('apiResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.className = 'results';
+            resultsDiv.innerHTML = 'Testing hotel API...';
+            
+            try {
+                const response = await fetch('/api/hotels/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        location: 'Mumbai',
+                        checkIn: '2025-01-15',
+                        checkOut: '2025-01-20',
+                        guests: '2',
+                        rooms: '1'
+                    })
+                });
+                
+                log(`Hotel API response status: ${response.status}`, 'info');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                log(`Hotel API returned ${data.length} results`, 'success');
+                
+                resultsDiv.className = 'results success';
+                resultsDiv.innerHTML = `
+                    <h3>✅ Hotel API Test Successful!</h3>
+                    <p>Found ${data.length} hotels</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                log('Hotel API test failed: ' + error.message, 'error');
+                resultsDiv.className = 'results error';
+                resultsDiv.innerHTML = `
+                    <h3>❌ Hotel API Test Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+
+        // Test Transport API
+        async function testTransportAPI() {
+            log('Testing Transport API...', 'info');
+            const resultsDiv = document.getElementById('apiResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.className = 'results';
+            resultsDiv.innerHTML = 'Testing transport API...';
+            
+            try {
+                const response = await fetch('/api/transport/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pickup: 'Airport',
+                        dropoff: 'Hotel',
+                        date: '2025-01-15',
+                        time: '10:00',
+                        type: 'car'
+                    })
+                });
+                
+                log(`Transport API response status: ${response.status}`, 'info');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                log(`Transport API returned ${data.length} results`, 'success');
+                
+                resultsDiv.className = 'results success';
+                resultsDiv.innerHTML = `
+                    <h3>✅ Transport API Test Successful!</h3>
+                    <p>Found ${data.length} transport options</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                log('Transport API test failed: ' + error.message, 'error');
+                resultsDiv.className = 'results error';
+                resultsDiv.innerHTML = `
+                    <h3>❌ Transport API Test Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+
+        // Auto-check server status on page load
+        window.addEventListener('load', function() {
+            log('Debug page loaded', 'info');
+            checkServerStatus();
+        });
+    </script>
+</body>
+</html> 

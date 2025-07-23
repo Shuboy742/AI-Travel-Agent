@@ -17,6 +17,7 @@ from .routes.payments import router as payments_router
 import traceback
 
 load_dotenv()
+print("Loaded AVIATIONSTACK_API_KEY:", os.getenv("AVIATIONSTACK_API_KEY"))
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:

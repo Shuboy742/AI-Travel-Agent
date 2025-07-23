@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Test - Main Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .result { margin: 10px 0; padding: 10px; background: #f0f0f0; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Quick Test - Main Page Functionality</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Direct API Call</h2>
+        <button onclick="testDirectAPI()">Test Direct API</button>
+        <div id="apiResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Form Simulation</h2>
+        <button onclick="testFormSimulation()">Test Form Simulation</button>
+        <div id="formResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Main Page Link</h2>
+        <a href="/" target="_blank" style="padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+            Open Main Page
+        </a>
+        <p>Open the main page and check the browser console (F12) for debug messages.</p>
+    </div>
+
+    <script>
+        async function testDirectAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/flights/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        from: 'DEL',
+                        to: 'BOM',
+                        departDate: '2025-01-15',
+                        passengers: '1'
+                    })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `<div class="success">✅ API Working! Found ${data.length} flights</div>`;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ API Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testFormSimulation() {
+            const resultDiv = document.getElementById('formResult');
+            resultDiv.innerHTML = 'Testing form simulation...';
+            
+            try {
+                // Simulate form data
+                const formData = new FormData();
+                formData.append('from', 'DEL');
+                formData.append('to', 'BOM');
+                formData.append('departDate', '2025-01-15');
+                formData.append('passengers', '1');
+                
+                // Convert to object
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                console.log('Form data:', data);
+                
+                const response = await fetch('/api/flights/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const results = await response.json();
+                resultDiv.innerHTML = `<div class="success">✅ Form Simulation Working! Found ${results.length} flights</div>`;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Form Simulation Error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html> 

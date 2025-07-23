@@ -23,6 +23,10 @@
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      .search-form.active { display: block !important; }
+      #hotelSearchForm.active { border: 2px solid red !important; }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -84,42 +88,38 @@
                     
                     <!-- Search Form -->
                     <div class="search-container">
+                        <!-- Tab Navigation -->
                         <div class="search-tabs">
-                            <button class="tab-btn active" data-tab="flights">
-                                <i class="fas fa-plane"></i> Flights
-                            </button>
-                            <button class="tab-btn" data-tab="hotels">
-                                <i class="fas fa-bed"></i> Hotels
-                            </button>
-                            <button class="tab-btn" data-tab="transport">
-                                <i class="fas fa-car"></i> Transport
-                            </button>
+                            <button class="tab-btn active" data-form="flightSearchForm">Flights</button>
+                            <button class="tab-btn" data-form="hotelSearchForm">Hotels</button>
+                            <button class="tab-btn" data-form="transportSearchForm">Transport</button>
                         </div>
+                        <!-- All forms visible, no tabs -->
                         
                         <!-- Flight Search Form -->
-                        <form class="search-form active" id="flightSearchForm">
+                        <form class="search-form" id="flightSearchForm">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="from">From</label>
-                                    <input type="text" id="from" placeholder="Departure city" required>
+                                    <input type="text" id="from" name="from" placeholder="Departure city" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="to">To</label>
-                                    <input type="text" id="to" placeholder="Destination city" required>
+                                    <input type="text" id="to" name="to" placeholder="Destination city" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="departDate">Departure</label>
-                                    <input type="date" id="departDate" required>
+                                    <input type="date" id="departDate" name="departDate" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="returnDate">Return</label>
-                                    <input type="date" id="returnDate">
+                                    <input type="date" id="returnDate" name="returnDate">
                                 </div>
                                 <div class="form-group">
                                     <label for="passengers">Passengers</label>
-                                    <select id="passengers">
+                                    <select id="passengers" name="passengers">
                                         <option value="1">1 Passenger</option>
                                         <option value="2">2 Passengers</option>
                                         <option value="3">3 Passengers</option>
@@ -137,21 +137,21 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="hotelLocation">Destination</label>
-                                    <input type="text" id="hotelLocation" placeholder="City, hotel, or landmark" required>
+                                    <input type="text" id="hotelLocation" name="location" placeholder="City, hotel, or landmark" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="checkIn">Check-in</label>
-                                    <input type="date" id="checkIn" required>
+                                    <input type="date" id="checkIn" name="checkIn" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="checkOut">Check-out</label>
-                                    <input type="date" id="checkOut" required>
+                                    <input type="date" id="checkOut" name="checkOut" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="guests">Guests</label>
-                                    <select id="guests">
+                                    <select id="guests" name="guests">
                                         <option value="1">1 Guest</option>
                                         <option value="2">2 Guests</option>
                                         <option value="3">3 Guests</option>
@@ -160,7 +160,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="rooms">Rooms</label>
-                                    <select id="rooms">
+                                    <select id="rooms" name="rooms">
                                         <option value="1">1 Room</option>
                                         <option value="2">2 Rooms</option>
                                         <option value="3">3 Rooms</option>
@@ -177,25 +177,25 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="pickup">Pickup Location</label>
-                                    <input type="text" id="pickup" placeholder="Airport, hotel, or address" required>
+                                    <input type="text" id="pickup" name="pickup" placeholder="Airport, hotel, or address" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="dropoff">Dropoff Location</label>
-                                    <input type="text" id="dropoff" placeholder="Destination address" required>
+                                    <input type="text" id="dropoff" name="dropoff" placeholder="Destination address" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="transportDate">Date</label>
-                                    <input type="date" id="transportDate" required>
+                                    <input type="date" id="transportDate" name="date" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="transportTime">Time</label>
-                                    <input type="time" id="transportTime" required>
+                                    <input type="time" id="transportTime" name="time" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="transportType">Service Type</label>
-                                    <select id="transportType">
+                                    <select id="transportType" name="type">
                                         <option value="taxi">Taxi</option>
                                         <option value="uber">Uber</option>
                                         <option value="limo">Limo</option>
@@ -424,19 +424,30 @@
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/search.js"></script>
-    <script src="js/chat.js"></script>
+    <script src="js/chat.js"></script> <!-- ENABLED -->
     <script src="js/ui.js"></script>
     <!-- Razorpay Checkout -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Tab switching logic for search forms
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          // Hide all forms
+          document.querySelectorAll('.search-form').forEach(f => f.style.display = 'none');
+          // Show selected form
+          document.getElementById(this.dataset.form).style.display = 'block';
+        });
+      });
+      // On page load, show only the first form
+      document.querySelectorAll('.search-form').forEach((f, i) => {
+        f.style.display = i === 0 ? 'block' : 'none';
+      });
+    </script>
 </body>
 </html> 
-
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Backend is working!"} 
