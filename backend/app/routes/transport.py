@@ -65,7 +65,10 @@ def generate_mock_transports(pickup, dropoff, transport_type):
         # Add some variation
         final_price = base_price + random.randint(-5, 10)
         final_price = max(10, final_price)  # Minimum $10
-        
+
+        # Convert USD to INR (assume 1 USD = 80 INR)
+        inr_price = final_price * 80
+
         # Generate estimated duration (15-60 minutes)
         duration = random.randint(15, 60)
         
@@ -75,7 +78,7 @@ def generate_mock_transports(pickup, dropoff, transport_type):
             "provider": provider,
             "pickup": pickup,
             "dropoff": dropoff,
-            "price": f"${final_price}",
+            "price": f"₹{inr_price}",
             "duration": f"{duration} min",
             "estimated_arrival": f"{duration} min",
             "vehicle_type": get_vehicle_type(current_type),
@@ -86,7 +89,7 @@ def generate_mock_transports(pickup, dropoff, transport_type):
         transports.append(transport)
     
     # Sort by price (lowest first)
-    transports.sort(key=lambda x: int(x["price"].replace("$", "")))
+    transports.sort(key=lambda x: int(x["price"].replace("₹", "")))
     return transports
 
 def get_vehicle_type(transport_type):
