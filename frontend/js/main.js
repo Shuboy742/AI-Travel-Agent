@@ -188,6 +188,12 @@ async function handleFlightSearch(e) {
         
         const results = await response.json();
         console.log('✈️ Flight results:', results);
+        
+        // Store results for payment processing
+        if (window.storeSearchResults) {
+            window.storeSearchResults(results.flights, 'flights');
+        }
+        
         displayResults(results.flights, 'flights');
         
     } catch (error) {
@@ -247,14 +253,21 @@ async function handleHotelSearch(e) {
         
         const results = await response.json();
         console.log('🏨 Hotel results:', results);
+        
         // Fix: support both array and object with 'hotels' key
+        let hotelResults = [];
         if (Array.isArray(results)) {
-            displayResults(results, 'hotels');
+            hotelResults = results;
         } else if (results && Array.isArray(results.hotels)) {
-            displayResults(results.hotels, 'hotels');
-        } else {
-            displayResults([], 'hotels');
+            hotelResults = results.hotels;
         }
+        
+        // Store results for payment processing
+        if (window.storeSearchResults) {
+            window.storeSearchResults(hotelResults, 'hotels');
+        }
+        
+        displayResults(hotelResults, 'hotels');
         
     } catch (error) {
         console.error('❌ Hotel search error:', error);
@@ -313,6 +326,12 @@ async function handleTransportSearch(e) {
         
         const results = await response.json();
         console.log('🚗 Transport results:', results);
+        
+        // Store results for payment processing
+        if (window.storeSearchResults) {
+            window.storeSearchResults(results, 'transport');
+        }
+        
         displayResults(results, 'transport');
         
     } catch (error) {
@@ -467,34 +486,8 @@ function createResultCard(result, type) {
     return card;
 }
 
-// Booking function
-async function bookItem(id, type) {
-    console.log(`📅 Booking ${type} with ID: ${id}`);
-    
-    try {
-        const response = await fetch('/api/bookings/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                type: type,
-                id: id
-            })
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        showNotification(`Successfully booked ${type}!`, 'success');
-        
-    } catch (error) {
-        console.error('Booking error:', error);
-        showNotification('Error making booking. Please try again.', 'error');
-    }
-}
+// Booking function is now handled by payments.js
+// The bookItem function is defined globally in payments.js
 
 // Utility functions
 function showLoading(show) {

@@ -296,6 +296,7 @@ a:hover {
     margin-bottom: var(--spacing-2xl);
     opacity: 0.9;
     line-height: 1.6;
+    color: var(--white) !important;
 }
 
 .hero-image img {

@@ -46,6 +46,10 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
+@router.post("/signup", response_model=UserOut)
+def signup(user: UserCreate, db: Session = Depends(get_db)):
+    return register(user, db)
+
 @router.post("/login")
 def login(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.email == user.email).first()
